@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos & Formación | INVENTARIA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #121212; color: #EEEEEE; margin: 0; overflow-x: hidden; }
+        h1, h2, h3, .font-serif { font-family: 'Playfair Display', serif; }
+        .text-violet-gender { color: #A855F7; }
+        .bg-violet-gender { background-color: #7B2CBF; }
+        .border-violet-gender { border-color: #7B2CBF; }
+
+        /* Trama sutil adaptada para modo oscuro */
+        .lineas-contenedor { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 0; pointer-events: none; opacity: 0.1; }
+        @keyframes flujo { 0% { transform: scale(1) rotate(0deg); } 50% { transform: scale(1.1) rotate(1deg); } 100% { transform: scale(1) rotate(0deg); } }
+        .lineas-contenedor svg { animation: flujo 25s ease-in-out infinite; }
+
+        .course-card { background: #1A1A1A; border: 1px solid #2A2A2A; transition: all 0.5s ease; position: relative; z-index: 10; }
+        .course-card:hover { border-color: #7B2CBF; transform: translateY(-8px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .header-glass { background: rgba(18, 18, 18, 0.9); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,255,255,0.05); }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <div class="lineas-contenedor">
+        <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M-100 200 C 100 100, 300 300, 500 200 S 700 100, 900 200" fill="none" stroke="#A855F7" stroke-width="0.8"/>
+            <path d="M-50 450 C 250 550, 450 350, 650 450 S 950 550, 1150 450" fill="none" stroke="#A855F7" stroke-width="0.5" opacity="0.6"/>
+            <circle cx="200" cy="300" r="1.5" fill="#A855F7" opacity="0.5"/>
+        </svg>
+    </div>
+
+    <header class="py-6 px-6 header-glass sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl tracking-tighter uppercase font-bold text-gray-800">
+                <a href="index.html">INVENTARIA</a>
+            </h1>
+            
+            <nav class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-semibold text-gray-500">
+                <a href="index.html" class="hover:text-violet-gender transition">Inicio</a>
+                <a href="revista.html" class="hover:text-violet-gender transition">Revista</a>
+                <a href="cursos.html" class="hover:text-violet-gender transition">Cursos</a>
+                <a href="sobre-mi.html" class="hover:text-violet-gender transition">Sobre Mí</a>
+            </nav>
+
+            <div class="md:hidden flex space-x-4 text-[10px] uppercase font-bold tracking-widest text-gray-500">
+                <a href="revista.html">Revista</a>
+                <a href="cursos.html">Cursos</a>
+                <a href="sobre-mi.html">Bio</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto py-24 px-6 relative z-10">
+        
+        <div class="mb-20">
+            <span class="text-violet-gender font-bold tracking-[0.4em] text-[10px] uppercase mb-4 block">Formación Profesional</span>
+            <h2 class="text-6xl md:text-8xl mb-8 italic text-white">Herramientas para el <span class="text-violet-gender">territorio.</span></h2>
+            <p class="text-gray-400 text-xl font-light max-w-2xl leading-relaxed">
+                Espacios de aprendizaje colaborativo diseñados para transformar la comunicación institucional y comunitaria con perspectiva de género.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            <div class="course-card p-10 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-8">
+                        <span class="px-3 py-1 border border-violet-gender text-violet-gender text-[9px] uppercase font-bold tracking-widest">En Vivo (Zoom)</span>
+                        <span class="text-gray-500 text-xs font-mono">Abril 2026</span>
+                    </div>
+                    <h3 class="text-3xl mb-6 text-white leading-tight">Narrativas de Género en la Comunicación Pública</h3>
+                    <p class="text-gray-400 font-light mb-8 leading-relaxed">
+                        Un taller de 4 encuentros para repensar cómo las instituciones comunican y construyen realidades más equitativas.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-3 mb-12">
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-violet-gender rounded-full"></span> 4 clases magistrales</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-violet-gender rounded-full"></span> Material bibliográfico digital</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-violet-gender rounded-full"></span> Certificado de participación</li>
+                    </ul>
+                </div>
+                <div class="flex justify-between items-center pt-8 border-t border-white/5">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-500">Inversión</p>
+                        <p class="text-2xl font-bold text-white">$ 25.000 <span class="text-xs font-light text-gray-500">ARS</span></p>
+                    </div>
+                    <a href="#" class="bg-violet-gender text-white px-8 py-4 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-purple-800 transition shadow-lg shadow-purple-900/20">Inscribirme</a>
+                </div>
+            </div>
+
+            <div class="course-card p-10 flex flex-col justify-between">
+                <div>
+                    <div class="flex justify-between items-start mb-8">
+                        <span class="px-3 py-1 border border-gray-600 text-gray-400 text-[9px] uppercase font-bold tracking-widest text-center">Asincrónico (A tu ritmo)</span>
+                        <span class="text-gray-500 text-xs font-mono">Acceso Inmediato</span>
+                    </div>
+                    <h3 class="text-3xl mb-6 text-white leading-tight">ESI: Herramientas didácticas para el aula hoy</h3>
+                    <p class="text-gray-400 font-light mb-8 leading-relaxed">
+                        Curso práctico orientado a docentes y educadores que buscan integrar la ESI de forma transversal y creativa.
+                    </p>
+                    <ul class="text-sm text-gray-500 space-y-3 mb-12">
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-violet-gender rounded-full"></span> 10 módulos en video</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-violet-gender rounded-full"></span> Foro de consultas</li>
+                        <li class="flex items-center gap-3"><span class="w-1.5 h-1.5 bg-violet-gender rounded-full"></span> Actividades prácticas descargables</li>
+                    </ul>
+                </div>
+                <div class="flex justify-between items-center pt-8 border-t border-white/5">
+                    <div>
+                        <p class="text-[10px] uppercase tracking-widest text-gray-500">Inversión</p>
+                        <p class="text-2xl font-bold text-white">$ 18.500 <span class="text-xs font-light text-gray-500">ARS</span></p>
+                    </div>
+                    <a href="#" class="bg-white text-black px-8 py-4 text-[10px] uppercase tracking-[0.2em] font-bold hover:bg-gray-200 transition shadow-lg">Comprar acceso</a>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="mt-20 p-12 bg-gradient-to-r from-violet-900/20 to-transparent border border-white/5 text-center">
+            <h4 class="text-2xl italic mb-4">¿Buscás un acompañamiento personalizado?</h4>
+            <p class="text-gray-400 font-light mb-8">Ofrezco mentorías individuales para proyectos de comunicación con enfoque de género.</p>
+            <a href="mailto:hola@claudiaquiroga.com.ar" class="text-violet-gender font-bold uppercase tracking-widest text-xs border-b border-violet-gender pb-1">Consultar disponibilidad</a>
+        </div>
+
+    </main>
+
+    <footer class="py-20 text-center border-t border-white/5">
+        <p class="text-[9px] text-gray-600 uppercase tracking-[0.5em]">&copy; 2026 INVENTARIA &bull; Claudia Quiroga</p>
+    </footer>
+
+</body>
+</html>

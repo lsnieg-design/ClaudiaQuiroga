@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Mí | Claudia Quiroga</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FDFDFF; color: #2D2D2D; margin: 0; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .text-violet-gender { color: #7B2CBF; }
+        .lineas-contenedor { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; opacity: 0.15; }
+        .header-glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); }
+        .contact-link { transition: all 0.3s ease; border-bottom: 1px solid transparent; }
+        .contact-link:hover { color: #7B2CBF; border-color: #7B2CBF; }
+    </style>
+</head>
+<body>
+    <div class="lineas-contenedor">
+        <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M-100 200 C 100 100, 300 300, 500 200 S 700 100, 900 200" fill="none" stroke="#7B2CBF" stroke-width="0.6"/>
+        </svg>
+    </div>
+
+    <header class="py-6 px-6 header-glass sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl tracking-tighter uppercase font-bold text-gray-800"><a href="index.html">INVENTARIA</a></h1>
+            <nav class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-semibold text-gray-500">
+                <a href="index.html" class="hover:text-violet-gender transition">Inicio</a>
+                <a href="revista.html" class="hover:text-violet-gender transition">Revista</a>
+                <a href="cursos.html" class="hover:text-violet-gender transition">Cursos</a>
+                <a href="sobre-mi.html" class="text-violet-gender transition">Sobre Mí</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto py-20 px-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-20">
+            <div class="bg-gray-200 aspect-[3/4] rounded-sm overflow-hidden shadow-xl">
+                <img src="clo.jpg" class="w-full h-full object-cover grayscale transition duration-700 hover:grayscale-0">
+            </div>
+            <div>
+                <h2 class="text-5xl mb-6 italic">Claudia Quiroga</h2>
+                <p class="text-gray-600 leading-relaxed mb-6 font-light">
+                    Comunicadora, docente y activista. A través de <strong>Inventaria</strong>, busco registrar las narrativas territoriales con perspectiva de género...
+                </p>
+                <p class="text-gray-600 leading-relaxed font-light mb-8">
+                    Mi trabajo se centra en la intersección entre la tecnología, la educación y la comunicación comunitaria.
+                </p>
+
+                <div class="space-y-4 pt-6 border-t border-gray-100">
+                    <h3 class="text-xs uppercase tracking-[0.3em] font-bold text-gray-400 mb-6">Contacto y Redes</h3>
+                    
+                    <div class="flex flex-col space-y-3 text-sm tracking-wide">
+                        <a href="https://www.instagram.com/cloquiroga/" target="_blank" class="contact-link w-fit">
+                            Instagram: @cloquiroga
+                        </a>
+                        <a href="https://www.facebook.com/clocloqui" target="_blank" class="contact-link w-fit">
+                            Facebook: @clocloqui
+                        </a>
+                        <a href="mailto:cloquiroga@gmail.com" class="contact-link w-fit">
+                            Email: cloquiroga@gmail.com
+                        </a>
+                        <a href="https://wa.me/5491158053904" target="_blank" class="contact-link w-fit font-semibold">
+                            WhatsApp: +54 9 11 5805-3904
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+<section class="max-w-6xl mx-auto py-20 px-6 border-t border-gray-100">
+    <div class="flex justify-between items-end mb-10">
+        <div>
+            <h3 class="text-xs uppercase tracking-[0.4em] font-bold text-violet-gender mb-2">Comunidad</h3>
+            <h2 class="text-4xl italic">En Instagram</h2>
+        </div>
+        <a href="https://www.instagram.com/cloquiroga/" target="_blank" class="text-[10px] uppercase tracking-widest font-bold border-b border-gray-300 pb-1 hover:border-violet-gender transition">Seguir @cloquiroga</a>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div class="aspect-square bg-gray-100 overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?q=80&w=400" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+            <div class="absolute inset-0 bg-violet-gender/20 opacity-0 group-hover:opacity-100 transition flex items-center justify-center">
+                <span class="text-white text-xs font-bold tracking-widest">VER POST</span>
+            </div>
+        </div>
+        <div class="aspect-square bg-gray-100 overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=400" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+        </div>
+        <div class="aspect-square bg-gray-100 overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1516979187457-637abb4f9353?q=80&w=400" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+        </div>
+        <div class="aspect-square bg-gray-100 overflow-hidden group relative">
+            <img src="https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?q=80&w=400" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition duration-700">
+        </div>
+    </div>
+</section>
+    </main>
+
+    <footer class="py-12 text-center border-t border-gray-100">
+        <p class="text-[10px] text-gray-300 uppercase tracking-[0.5em]">Inventaria &bull; 2026</p>
+    </footer>
+</body>
+</html>

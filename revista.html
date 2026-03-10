@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revista INVENTARIA | Archivo Editorial</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #FDFDFF; color: #2D2D2D; margin: 0; overflow-x: hidden; }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        .text-violet-gender { color: #7B2CBF; }
+        
+        /* Trama sutil heredada del index */
+        .lineas-contenedor { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; pointer-events: none; opacity: 0.15; }
+        @keyframes flujo { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+        .lineas-contenedor svg { animation: flujo 30s ease-in-out infinite; }
+
+        .header-glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(12px); }
+        .post-card { transition: all 0.4s ease; border-bottom: 1px solid #eee; padding-bottom: 2rem; }
+        .post-card:hover { transform: translateY(-5px); }
+    </style>
+</head>
+<body>
+
+    <div class="lineas-contenedor">
+        <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+            <path d="M-100 200 C 100 100, 300 300, 500 200 S 700 100, 900 200" fill="none" stroke="#7B2CBF" stroke-width="0.6"/>
+            <path d="M-50 150 C 250 250, 450 50, 650 150 S 950 250, 1150 150" fill="none" stroke="#7B2CBF" stroke-width="0.4" opacity="0.6"/>
+        </svg>
+    </div>
+
+   <header class="py-6 px-6 header-glass sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <h1 class="text-3xl tracking-tighter uppercase font-bold text-gray-800">
+                <a href="index.html">INVENTARIA</a>
+            </h1>
+            
+            <nav class="hidden md:flex space-x-8 text-sm uppercase tracking-widest font-semibold text-gray-500">
+                <a href="index.html" class="hover:text-violet-gender transition">Inicio</a>
+                <a href="revista.html" class="hover:text-violet-gender transition">Revista</a>
+                <a href="cursos.html" class="hover:text-violet-gender transition">Cursos</a>
+                <a href="sobre-mi.html" class="hover:text-violet-gender transition">Sobre Mí</a>
+            </nav>
+
+            <div class="md:hidden flex space-x-4 text-[10px] uppercase font-bold tracking-widest text-gray-500">
+                <a href="revista.html">Revista</a>
+                <a href="cursos.html">Cursos</a>
+                <a href="sobre-mi.html">Bio</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto py-20 px-6">
+        <div class="text-center mb-24">
+            <h2 class="text-5xl md:text-7xl mb-4 italic">Archivo Editorial</h2>
+            <p class="text-gray-400 uppercase tracking-[0.3em] text-xs">Registros, ensayos y reflexiones territoriales</p>
+        </div>
+
+        <div class="flex flex-wrap gap-4 mb-16 border-b border-gray-100 pb-8 text-[10px] uppercase tracking-widest font-bold text-gray-400">
+            <span class="text-violet-gender cursor-pointer">Todos</span>
+            <span class="hover:text-violet-gender cursor-pointer transition">Perspectiva</span>
+            <span class="hover:text-violet-gender cursor-pointer transition">ESI</span>
+            <span class="hover:text-violet-gender cursor-pointer transition">Comunicación</span>
+            <span class="hover:text-violet-gender cursor-pointer transition">Cultura</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-20">
+            
+            <article class="post-card group">
+                <div class="aspect-[3/4] overflow-hidden mb-6 bg-gray-100 rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1586339949916-3e9457bef6d3?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                </div>
+                <div class="space-y-3">
+                    <p class="text-[10px] text-violet-gender font-bold uppercase tracking-widest">Marzo 2026 | Perspectiva</p>
+                    <h3 class="text-3xl leading-tight group-hover:text-violet-gender transition">Territorios en disputa: La voz como inventario.</h3>
+                    <p class="text-sm text-gray-500 font-light leading-relaxed">¿Cómo registramos aquello que la historia oficial decide omitir?</p>
+                </div>
+            </article>
+
+            <article class="post-card group">
+                <div class="aspect-[3/4] overflow-hidden mb-6 bg-gray-100 rounded-sm">
+                    <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=600" class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700">
+                </div>
+                <div class="space-y-3">
+                    <p class="text-[10px] text-violet-gender font-bold uppercase tracking-widest">Febrero 2026 | ESI</p>
+                    <h3 class="text-3xl leading-tight group-hover:text-violet-gender transition">Pedagogías del cuidado en la red.</h3>
+                    <p class="text-sm text-gray-500 font-light leading-relaxed">El impacto de la educación sexual integral en entornos digitales.</p>
+                </div>
+            </article>
+
+            <article class="post-card group flex flex-col justify-end bg-violet-gender/[0.03] p-8 border-none">
+                <div class="space-y-3">
+                    <p class="text-[10px] text-violet-gender font-bold uppercase tracking-widest">Ensayo</p>
+                    <h3 class="text-3xl leading-tight group-hover:italic transition-all italic">El silencio no es un olvido, es una decisión política.</h3>
+                    <p class="text-sm text-gray-500 font-light leading-relaxed">Reflexiones sobre la escucha activa en proyectos comunitarios.</p>
+                    <div class="pt-4 text-[10px] uppercase font-bold tracking-widest border-t border-violet-gender/20">Leer Columna →</div>
+                </div>
+            </article>
+
+        </div>
+    </main>
+
+    <footer class="py-20 text-center border-t border-gray-100">
+        <p class="text-[10px] text-gray-300 uppercase tracking-[0.5em]">Inventaria &bull; Claudia Quiroga</p>
+    </footer>
+
+</body>
+</html>
