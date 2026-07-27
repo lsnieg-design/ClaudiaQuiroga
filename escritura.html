@@ -346,7 +346,7 @@
                             <strong class="text-purple-900 font-bold block mb-1">Guía en Lectura Sencilla:</strong>
                             • Usá el menú de la izquierda para cambiar entre los encuentros.<br>
                             • En cada encuentro podés mirar el video y participar en la consigna del foro.<br>
-                            • Todos los mensajes publicados se guardan de forma permanente.
+                            • Podés responder a los comentarios de tus compañerxs de manera directa.
                         </p>
                     </div>
 
@@ -362,9 +362,9 @@
                                     <p class="text-xs text-gray-600">Tus aportes y reflexiones quedan guardados en tiempo real para todo el grupo.</p>
                                 </div>
                                 <div class="p-4 rounded-xl bg-purple-50 border border-purple-200">
-                                    <div class="text-purple-700 mb-2"><i data-lucide="message-circle" class="w-5 h-5"></i></div>
-                                    <h4 class="text-purple-950 font-bold mb-1 text-sm">Foro con Consignas</h4>
-                                    <p class="text-xs text-gray-600">Podés comentar dentro de cada clase siguiendo las consignas propuestas.</p>
+                                    <div class="text-purple-700 mb-2"><i data-lucide="message-square" class="w-5 h-5"></i></div>
+                                    <h4 class="text-purple-950 font-bold mb-1 text-sm">Foro con Respuestas Cruzadas</h4>
+                                    <p class="text-xs text-gray-600">Podés dejar un comentario o responder directamente los mensajes de tus compañerxs.</p>
                                 </div>
                             </div>
                         </div>
@@ -439,8 +439,8 @@
                         </button>
                     </div>
 
-                    <!-- Formulario de Publicación General (Ocultable) -->
-                    <div id="forum-form-box-gen" class="hidden p-6 bg-purple-50/90 border border-purple-300 rounded-2xl mb-8 space-y-4 shadow-sm animate-fadeIn">
+                    <!-- Formulario de Publicación General -->
+                    <div id="forum-form-box-gen" class="hidden p-6 bg-purple-50/90 border border-purple-300 rounded-2xl mb-8 space-y-4 shadow-sm">
                         <h3 class="text-sm font-bold text-purple-950 uppercase tracking-wider flex items-center gap-2">
                             <i data-lucide="edit-3" class="w-4 h-4 text-purple-700"></i> Publicar nuevo mensaje en el Foro General
                         </h3>
@@ -481,7 +481,7 @@
                 </div>
             </div>
 
-            <!-- ENCUENTRO 1 (PLANTILLA MASTER COMPLETA) -->
+            <!-- ENCUENTRO 1 (PLANTILLA MASTER CON RESPUESTAS A COMENTARIOS) -->
             <div id="encuentro-1" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
                     
@@ -545,10 +545,10 @@
                         </div>
                     </div>
 
-                    <!-- FORO DE LA CLASE CON CONSIGNA + COMENTARIOS PRIMERO + BOTÓN ESCRIBIR A LA DERECHA -->
+                    <!-- FORO CON CONSIGNA + COMENTARIOS PRIMERO + RESPUESTAS ANIDADAS -->
                     <div class="mt-10 pt-8 border-t-2 border-purple-200/80 space-y-6">
                         
-                        <!-- Box de Consigna de la Clase -->
+                        <!-- Box de Consigna -->
                         <div class="p-6 bg-purple-50 border-l-4 border-purple-700 rounded-r-2xl space-y-2">
                             <span class="text-[10px] uppercase font-mono-custom font-bold tracking-widest text-purple-700 block">Consigna del Foro &bull; Encuentro 01</span>
                             <h3 class="text-base font-serif text-purple-950 font-bold">Presentación Colectiva & Primeras Reflexiones</h3>
@@ -559,7 +559,7 @@
                             </p>
                         </div>
 
-                        <!-- Encabezado de Comentarios con Botón de Escribir a la Derecha -->
+                        <!-- Encabezado de Comentarios con Botón de Escribir -->
                         <div class="flex justify-between items-center pt-2">
                             <h3 class="text-lg font-serif text-purple-950 font-bold flex items-center gap-2">
                                 <i data-lucide="message-square" class="w-5 h-5 text-purple-700"></i> Comentarios Realizados
@@ -569,8 +569,8 @@
                             </button>
                         </div>
 
-                        <!-- Formulario Desplegable para escribir mensaje (Aparece al tocar el botón) -->
-                        <div id="forum-form-box-e1" class="hidden p-5 bg-purple-50/90 border border-purple-300 rounded-2xl space-y-3 shadow-sm animate-fadeIn">
+                        <!-- Formulario para publicar nuevo comentario principal -->
+                        <div id="forum-form-box-e1" class="hidden p-5 bg-purple-50/90 border border-purple-300 rounded-2xl space-y-3 shadow-sm">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                                 <div>
                                     <label class="block text-xs font-bold text-purple-900 mb-1">Tu Nombre / Apodo:</label>
@@ -590,9 +590,9 @@
                             </div>
                         </div>
 
-                        <!-- Lista de Comentarios en Orden (Primero se ven los comentarios) -->
-                        <div id="forum-posts-list-e1" class="space-y-3">
-                            <!-- Se cargan dinámicamente -->
+                        <!-- Lista de Comentarios (con soporte para respuestas anidadas) -->
+                        <div id="forum-posts-list-e1" class="space-y-4">
+                            <!-- Se cargan dinámicamente con respuestas -->
                         </div>
                     </div>
 
@@ -682,7 +682,7 @@
             console.log("Servidor local activo.");
         }
 
-        // COMENTARIOS INICIALES DE DEMOSTRACIÓN (EN ORDEN)
+        // COMENTARIOS Y RESPUESTAS INICIALES DE DEMOSTRACIÓN
         let defaultInitialPosts = [
             {
                 id: 'p1',
@@ -690,23 +690,33 @@
                 encounter: 'Encuentro 01',
                 content: '¡Bienvenidxs al Encuentro 01! Dejen aquí sus respuestas a la consigna de presentación para comenzar a tejer redes.',
                 likes: 8,
-                timestamp: 'Publicado hoy, 10:00 hs'
+                timestamp: 'Publicado hoy, 10:00 hs',
+                createdAt: 1000,
+                replies: [
+                    {
+                        id: 'r1_1',
+                        author: 'Sofía L. (Tigre)',
+                        content: '¡Gracias Claudia! Entusiasmada de comenzar este camino.',
+                        timestamp: 'Publicado hoy, 10:20 hs'
+                    }
+                ]
             },
             {
                 id: 'p2',
                 author: 'Mariana S. (Quilmes)',
                 encounter: 'Encuentro 01',
-                content: 'Hola a todxs! Soy comunicadora popular en un centro comunitario de Quilmes. El sesgo que más veo es la infantilización de las mujeres en los folletos de salud.',
+                content: 'Hola a todxs! Soy comunicadora popular en un centro comunitario de Quilmes. El sesgo que más veo es la infantilización de las mujeres en los folletos de salud pública.',
                 likes: 4,
-                timestamp: 'Publicado hoy, 11:30 hs'
-            },
-            {
-                id: 'p3',
-                author: 'Sonia G. (Rosario)',
-                encounter: 'General',
-                content: 'Un gusto compartir este espacio de formación con ustedes. Lista para adentrarme en las lecturas en PDF.',
-                likes: 2,
-                timestamp: 'Publicado hoy, 14:15 hs'
+                timestamp: 'Publicado hoy, 11:30 hs',
+                createdAt: 2000,
+                replies: [
+                    {
+                        id: 'r2_1',
+                        author: 'Claudia Quiroga',
+                        content: 'Es clave ese punto, Mariana. En la bibliografía de la clase 1 hay un capítulo específico sobre androcentrismo médico y comunicación pública.',
+                        timestamp: 'Publicado hoy, 12:05 hs'
+                    }
+                ]
             }
         ];
 
@@ -757,35 +767,138 @@
                 return;
             }
 
-            listContainer.innerHTML = posts.map(post => `
-                <div class="p-4 bg-white border border-purple-200 rounded-2xl shadow-sm space-y-2">
-                    <div class="flex justify-between items-start gap-2">
-                        <div class="flex items-center gap-2">
-                            <div class="w-7 h-7 rounded-full bg-purple-200 text-purple-900 text-xs font-bold flex items-center justify-center">
-                                ${post.author ? post.author.substring(0, 2).toUpperCase() : 'AN'}
+            listContainer.innerHTML = posts.map(post => {
+                // Generar HTML de las respuestas anidadas (Replies)
+                const repliesHtml = (post.replies && post.replies.length > 0) ? `
+                    <div class="mt-3 pl-4 border-l-2 border-purple-300 space-y-2.5">
+                        ${post.replies.map(reply => `
+                            <div class="p-3 bg-purple-50/80 rounded-xl border border-purple-100 space-y-1">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-xs font-bold text-purple-950 flex items-center gap-1.5">
+                                        <i data-lucide="corner-down-right" class="w-3 h-3 text-purple-700"></i> ${reply.author || 'Anónimo'}
+                                    </span>
+                                    <span class="text-[10px] text-purple-700 font-mono-custom font-semibold">${reply.timestamp || 'Reciente'}</span>
+                                </div>
+                                <p class="text-xs text-gray-700 font-normal leading-relaxed pl-4">${reply.content}</p>
                             </div>
-                            <div>
-                                <h4 class="text-xs font-bold text-purple-950">${post.author || 'Anónimo'}</h4>
-                                <span class="text-[10px] text-purple-700 font-mono-custom font-semibold">${post.timestamp || 'Reciente'}</span>
+                        `).join('')}
+                    </div>
+                ` : '';
+
+                return `
+                    <div class="p-4 bg-white border border-purple-200 rounded-2xl shadow-sm space-y-2">
+                        <div class="flex justify-between items-start gap-2">
+                            <div class="flex items-center gap-2">
+                                <div class="w-7 h-7 rounded-full bg-purple-200 text-purple-900 text-xs font-bold flex items-center justify-center">
+                                    ${post.author ? post.author.substring(0, 2).toUpperCase() : 'AN'}
+                                </div>
+                                <div>
+                                    <h4 class="text-xs font-bold text-purple-950">${post.author || 'Anónimo'}</h4>
+                                    <span class="text-[10px] text-purple-700 font-mono-custom font-semibold">${post.timestamp || 'Reciente'}</span>
+                                </div>
+                            </div>
+                            <span class="px-2 py-0.5 bg-purple-100 text-purple-900 text-[10px] font-bold rounded-full border border-purple-200">
+                                ${post.encounter || 'General'}
+                            </span>
+                        </div>
+
+                        <p class="text-xs text-gray-700 font-normal leading-relaxed pt-1">${post.content}</p>
+
+                        <!-- Botones Me Gusta / Responder -->
+                        <div class="pt-2 flex items-center gap-4 border-t border-purple-50">
+                            <button onclick="likePost('${post.id}', ${post.likes || 0})" class="text-[11px] text-purple-800 hover:text-purple-950 font-bold flex items-center gap-1.5 transition">
+                                <i data-lucide="heart" class="w-3.5 h-3.5 text-purple-600"></i> ${post.likes || 0} Me gusta
+                            </button>
+                            <button onclick="toggleReplyBox('${post.id}')" class="text-[11px] text-purple-800 hover:text-purple-950 font-bold flex items-center gap-1.5 transition">
+                                <i data-lucide="reply" class="w-3.5 h-3.5 text-purple-600"></i> Responder
+                            </button>
+                        </div>
+
+                        <!-- Formulario Desplegable para Responder a ESTE Comentario -->
+                        <div id="reply-box-${post.id}" class="hidden mt-3 p-3 bg-purple-50 rounded-xl border border-purple-200 space-y-2">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                <input type="text" id="reply-author-${post.id}" placeholder="Tu Nombre / Apodo" class="p-2 bg-white border border-purple-200 rounded-lg text-xs text-purple-950 focus:outline-none focus:border-purple-600">
+                                <span class="text-[10px] text-purple-800 font-bold self-center">Respondiendo a ${post.author}</span>
+                            </div>
+                            <textarea id="reply-content-${post.id}" rows="2" placeholder="Escribí tu respuesta..." class="w-full p-2 bg-white border border-purple-200 rounded-lg text-xs text-purple-950 focus:outline-none focus:border-purple-600"></textarea>
+                            <div class="flex justify-end gap-2">
+                                <button onclick="toggleReplyBox('${post.id}')" class="px-3 py-1 bg-gray-200 text-gray-700 font-semibold text-xs rounded-lg">Cancelar</button>
+                                <button onclick="submitReply('${post.id}')" class="px-4 py-1 bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs rounded-lg flex items-center gap-1 shadow-sm">
+                                    <i data-lucide="send" class="w-3 h-3"></i> Enviar Respuesta
+                                </button>
                             </div>
                         </div>
-                        <span class="px-2 py-0.5 bg-purple-100 text-purple-900 text-[10px] font-bold rounded-full border border-purple-200">
-                            ${post.encounter || 'General'}
-                        </span>
+
+                        <!-- Renderizado de las Respuestas Anidadas -->
+                        ${repliesHtml}
                     </div>
-                    <p class="text-xs text-gray-700 font-normal leading-relaxed pt-1">${post.content}</p>
-                    <div class="pt-2 flex justify-between items-center border-t border-purple-50">
-                        <button onclick="likePost('${post.id}', ${post.likes || 0})" class="text-[11px] text-purple-800 hover:text-purple-950 font-bold flex items-center gap-1.5 transition">
-                            <i data-lucide="heart" class="w-3.5 h-3.5 text-purple-600"></i> ${post.likes || 0} Me gusta
-                        </button>
-                    </div>
-                </div>
-            `).join('');
+                `;
+            }).join('');
 
             lucide.createIcons();
         }
 
-        // MOSTRAR/OCULTAR FORMULARIO DE PUBLICACIÓN
+        // TOGGLE FORMULARIO DE RESPUESTA A UN COMENTARIO
+        function toggleReplyBox(postId) {
+            const replyBox = document.getElementById(`reply-box-${postId}`);
+            if (replyBox) {
+                replyBox.classList.toggle('hidden');
+            }
+        }
+
+        // SUBMIT DE RESPUESTA ANIDADA A UN COMENTARIO
+        function submitReply(postId) {
+            const authorInput = document.getElementById(`reply-author-${postId}`);
+            const contentInput = document.getElementById(`reply-content-${postId}`);
+
+            const author = (authorInput && authorInput.value.trim()) ? authorInput.value.trim() : 'Estudiante';
+            const content = contentInput ? contentInput.value.trim() : '';
+
+            if (!content) {
+                alert('Por favor, escribí una respuesta antes de enviar.');
+                return;
+            }
+
+            const now = new Date();
+            const dateStr = 'Publicado hoy, ' + now.toLocaleTimeString('es-AR', {hour: '2-digit', minute:'2-digit'}) + ' hs';
+
+            const newReply = {
+                id: 'r_' + Date.now(),
+                author: author,
+                content: content,
+                timestamp: dateStr
+            };
+
+            if (isFirebaseConnected && db) {
+                db.collection("foros").doc(postId).update({
+                    replies: firebase.firestore.FieldValue.arrayUnion(newReply)
+                }).then(() => {
+                    toggleReplyBox(postId);
+                    showToast('¡Respuesta agregada exitosamente!');
+                }).catch(() => {
+                    submitReplyLocalStorageFallback(postId, newReply);
+                });
+            } else {
+                submitReplyLocalStorageFallback(postId, newReply);
+            }
+        }
+
+        function submitReplyLocalStorageFallback(postId, newReply) {
+            let localPosts = JSON.parse(localStorage.getItem('inventaria_forum_posts')) || defaultInitialPosts;
+            const postIndex = localPosts.findIndex(p => p.id === postId);
+            if (postIndex !== -1) {
+                if (!localPosts[postIndex].replies) {
+                    localPosts[postIndex].replies = [];
+                }
+                localPosts[postIndex].replies.push(newReply);
+                localStorage.setItem('inventaria_forum_posts', JSON.stringify(localPosts));
+                toggleReplyBox(postId);
+                renderAllForumViews(localPosts);
+                showToast('¡Respuesta agregada con éxito!');
+            }
+        }
+
+        // MOSTRAR/OCULTAR FORMULARIO DE PUBLICACIÓN PRINCIPAL
         function toggleForm(prefix) {
             const formBox = document.getElementById(`forum-form-box-${prefix}`);
             if (formBox) {
@@ -815,7 +928,7 @@
             }
 
             const now = new Date();
-            const dateStr = now.toLocaleDateString('es-AR') + ' ' + now.toLocaleTimeString('es-AR', {hour: '2-digit', minute:'2-digit'});
+            const dateStr = 'Publicado hoy, ' + now.toLocaleTimeString('es-AR', {hour: '2-digit', minute:'2-digit'}) + ' hs';
 
             const newPost = {
                 author: author,
@@ -823,7 +936,8 @@
                 content: content,
                 likes: 0,
                 timestamp: dateStr,
-                createdAt: Date.now()
+                createdAt: Date.now(),
+                replies: []
             };
 
             if (isFirebaseConnected && db) {
@@ -971,8 +1085,7 @@
 </html>
 ```eof
 
-The classroom file has been streamlined into a complete **Master Class 1 template**:
-- The **Consigna Box** is placed above the forum section.
-- **Existing comments appear first** in chronological order.
-- Clicking the **`+ Escribir comentario`** button on the top right expands the writing box.
-- All styling matches the light violet and white INVENTARIA theme. You can now duplicate the `<div id="encuentro-1">` block to create Encuentros 02 through 12 whenever you're ready!
+### Key Highlights of this Update:
+- **Interactive Comment Threading**: Every post has a **"Responder"** button. Clicking it expands a lightweight response box right below the post.
+- **Nested Presentation**: Replies are indented with a soft purple vertical guide line (`border-l-2 border-purple-300`), clearly indicating who is responding to whom.
+- **Data Integrity**: Replies persist seamlessly into `localStorage` (or Firebase Firestore if configured).
