@@ -10,6 +10,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Firebase SDK (Compat para integración directa HTML) -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     
     <style>
         :root {
@@ -41,7 +45,7 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Trama sutil animada adaptada al fondo violeta clarito */
+        /* Trama sutil animada */
         .lineas-contenedor { 
             position: fixed; 
             top: 0; 
@@ -219,7 +223,7 @@
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Background Subtle Lines SVG -->
+    <!-- Background Lines SVG -->
     <div class="lineas-contenedor">
         <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
             <path d="M-100 200 C 100 100, 300 300, 500 200 S 700 100, 900 200" fill="none" stroke="#7B2CBF" stroke-width="0.9"/>
@@ -244,9 +248,10 @@
             </div>
 
             <div class="flex items-center gap-6">
-                <div class="hidden md:flex items-center gap-3 text-xs text-purple-900 border-r border-purple-200 pr-6 font-mono-custom font-medium">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span>Cohorte 2026 &bull; 12 Encuentros</span>
+                <!-- Status Badge -->
+                <div id="db-status-badge" class="hidden md:flex items-center gap-2 text-xs text-purple-900 border-r border-purple-200 pr-6 font-mono-custom font-medium">
+                    <span id="db-status-dot" class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
+                    <span id="db-status-text">Base Local</span>
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-purple-200 border border-purple-400 flex items-center justify-center text-purple-900 text-xs font-bold">
@@ -277,63 +282,30 @@
                         <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                         <span>Inicio & Hoja de Ruta</span>
                     </button>
+                    <button class="nav-btn" onclick="openTab(event, 'foro-general')">
+                        <i data-lucide="message-square" class="w-4 h-4"></i>
+                        <span>Foro Comunitario</span>
+                    </button>
                 </nav>
 
                 <div class="px-6 mb-3 flex justify-between items-center">
                     <p class="text-[10px] uppercase tracking-[0.25em] font-bold text-purple-900">Encuentros (12)</p>
-                    <span class="text-[10px] font-mono-custom text-purple-700 font-semibold">0/12</span>
+                    <span class="text-[10px] font-mono-custom text-purple-700 font-semibold">12 Disponibles</span>
                 </div>
 
                 <nav class="space-y-0.5">
-                    <!-- 12 Encuentros List -->
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-1')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>01. Narrativas de Género</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-2')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>02. El Cuerpo Situado</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-3')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>03. Desmontar la Dramaturgia</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-4')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>04. Comunicación e Institución</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-5')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>05. Poéticas Visuales & Lenguaje</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-6')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>06. ESI en el Territorio</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-7')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>07. Interseccionalidad & Medios</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-8')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>08. Discursos & Cuidados Digitales</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-9')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>09. Artivismos & Archivos Vivos</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-10')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>10. Gestión Cultural Feminista</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-11')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>11. Producción & Proyectos</span>
-                    </button>
-                    <button class="nav-btn" onclick="openTab(event, 'encuentro-12')">
-                        <i data-lucide="play-circle" class="w-4 h-4"></i>
-                        <span>12. Cierre & Muestra Final</span>
-                    </button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-1')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>01. Narrativas de Género</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-2')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>02. El Cuerpo Situado</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-3')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>03. Desmontar la Dramaturgia</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-4')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>04. Comunicación e Institución</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-5')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>05. Poéticas Visuales & Lenguaje</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-6')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>06. ESI en el Territorio</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-7')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>07. Interseccionalidad & Medios</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-8')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>08. Discursos & Cuidados Digitales</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-9')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>09. Artivismos & Archivos Vivos</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-10')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>10. Gestión Cultural Feminista</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-11')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>11. Producción & Proyectos</span></button>
+                    <button class="nav-btn" onclick="openTab(event, 'encuentro-12')"><i data-lucide="play-circle" class="w-4 h-4"></i><span>12. Cierre & Muestra Final</span></button>
                 </nav>
 
                 <div class="px-6 mt-6 mb-3">
@@ -351,7 +323,7 @@
             <div class="p-6 border-t border-purple-200 bg-purple-100/50">
                 <p class="text-[10px] text-purple-900 uppercase tracking-widest leading-relaxed">
                     INVENTARIA &bull; Claudia Quiroga<br>
-                    <span class="text-purple-700 font-bold">Plataforma Accesible 2026</span>
+                    <span class="text-purple-700 font-bold">Base Persistente Conectada</span>
                 </p>
             </div>
         </aside>
@@ -377,13 +349,12 @@
                         </div>
                     </div>
 
-                    <!-- Lectura Fácil Box -->
                     <div id="lf-uso" class="lf-box">
                         <p class="text-sm text-purple-950 leading-relaxed font-normal">
                             <strong class="text-purple-900 font-bold block mb-1">Guía en Lectura Sencilla:</strong>
-                            • Usá el menú de la izquierda para cambiar entre los 12 encuentros.<br>
-                            • En cada encuentro podés mirar la grabación del video sincrónico.<br>
-                            • Tenés botones para descargar la bibliografía en PDF y entrar al foro de discusión.
+                            • Usá el menú de la izquierda para cambiar entre los 12 encuentros y el foro comunitario.<br>
+                            • Todo lo que publiques en los foros se guarda permanentemente en la nube.<br>
+                            • En cada encuentro podés mirar la grabación del video y descargar la bibliografía en PDF.
                         </p>
                     </div>
 
@@ -392,25 +363,20 @@
                             <p class="text-lg">
                                 Bienvenidx a la plataforma de aprendizaje de <strong class="text-purple-950 font-semibold">INVENTARIA</strong>. Este espacio fue pensado para garantizar una experiencia clara, accesible e interactiva a lo largo de nuestros 12 encuentros.
                             </p>
-                            <p class="text-gray-600">
-                                A través del panel lateral podrás acceder a cada clase grabada, descargar el material de lectura obligatoria y complementaria, e ingresar directamente a las actividades o foros de intercambio.
-                            </p>
-
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                                 <div class="p-4 rounded-xl bg-purple-50 border border-purple-200">
-                                    <div class="text-purple-700 mb-2"><i data-lucide="video" class="w-5 h-5"></i></div>
-                                    <h4 class="text-purple-950 font-bold mb-1 text-sm">Encuentros Sincrónicos</h4>
-                                    <p class="text-xs text-gray-600">Si no pudiste asistir en vivo, el video queda alojado e incrustado en cada módulo.</p>
+                                    <div class="text-purple-700 mb-2"><i data-lucide="database" class="w-5 h-5"></i></div>
+                                    <h4 class="text-purple-950 font-bold mb-1 text-sm">Guardado Permanente</h4>
+                                    <p class="text-xs text-gray-600">Tus aportes, preguntas y reflexiones quedan guardados en tiempo real para todo el grupo.</p>
                                 </div>
                                 <div class="p-4 rounded-xl bg-purple-50 border border-purple-200">
-                                    <div class="text-purple-700 mb-2"><i data-lucide="book-open" class="w-5 h-5"></i></div>
-                                    <h4 class="text-purple-950 font-bold mb-1 text-sm">Bibliografía Directa</h4>
-                                    <p class="text-xs text-gray-600">Archivos PDF curados por la docente para lectura previa o posterior.</p>
+                                    <div class="text-purple-700 mb-2"><i data-lucide="message-circle" class="w-5 h-5"></i></div>
+                                    <h4 class="text-purple-950 font-bold mb-1 text-sm">Foro Abierto y Situado</h4>
+                                    <p class="text-xs text-gray-600">Participá en el foro general o en el espacio propio de cada encuentro.</p>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Video Tutorial Embedding -->
                         <div class="space-y-3">
                             <div class="video-container shadow-md">
                                 <iframe src="https://www.youtube.com/embed/khCrpueNUSg" title="Tutorial del Campus"></iframe>
@@ -420,44 +386,6 @@
                                     <i data-lucide="play-circle" class="w-4 h-4 text-purple-700"></i> Video Tutorial de Navegación
                                 </p>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- FAQ Section -->
-                    <div class="mt-12 pt-8 border-t border-purple-100">
-                        <h3 class="text-xl font-serif text-purple-950 mb-6 flex items-center gap-3">
-                            <i data-lucide="help-circle" class="w-5 h-5 text-purple-700"></i> Preguntas Frecuentes
-                        </h3>
-                        <div class="space-y-3">
-                            <details class="group bg-purple-50/60 border border-purple-200 rounded-xl p-4 transition duration-200">
-                                <summary class="cursor-pointer font-bold text-purple-950 flex justify-between items-center group-open:text-purple-700">
-                                    <span>¿Cómo accedo a los encuentros sincrónicos en vivo por Zoom?</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition group-open:rotate-180 text-purple-700"></i>
-                                </summary>
-                                <p class="mt-3 text-sm text-gray-700 font-normal leading-relaxed border-t border-purple-200/80 pt-3">
-                                    El enlace permanente de Zoom se encuentra disponible en la pestaña de "Inicio & Hoja de Ruta", así como también en los recordatorios que enviamos por correo electrónico antes de cada clase.
-                                </p>
-                            </details>
-
-                            <details class="group bg-purple-50/60 border border-purple-200 rounded-xl p-4 transition duration-200">
-                                <summary class="cursor-pointer font-bold text-purple-950 flex justify-between items-center group-open:text-purple-700">
-                                    <span>¿Dónde realizo consultas pedagógicas sobre el material?</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition group-open:rotate-180 text-purple-700"></i>
-                                </summary>
-                                <p class="mt-3 text-sm text-gray-700 font-normal leading-relaxed border-t border-purple-200/80 pt-3">
-                                    En cada uno de los 12 encuentros encontrarás un botón de "Entrar al Foro / Recurso". Allí podés dejar tus inquietudes para que Claudia o las tutoras te respondan.
-                                </p>
-                            </details>
-
-                            <details class="group bg-purple-50/60 border border-purple-200 rounded-xl p-4 transition duration-200">
-                                <summary class="cursor-pointer font-bold text-purple-950 flex justify-between items-center group-open:text-purple-700">
-                                    <span>¿Cuándo se entrega el certificado de participación?</span>
-                                    <i data-lucide="chevron-down" class="w-4 h-4 transition group-open:rotate-180 text-purple-700"></i>
-                                </summary>
-                                <p class="mt-3 text-sm text-gray-700 font-normal leading-relaxed border-t border-purple-200/80 pt-3">
-                                    El certificado digital se emitirá al completar la "Verificación de Contenidos" tras finalizar el Encuentro 12.
-                                </p>
-                            </details>
                         </div>
                     </div>
                 </div>
@@ -474,71 +402,119 @@
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
-                        <div class="lg:col-span-2 space-y-6">
-                            <h3 class="text-xl font-serif text-purple-950 flex items-center gap-2">
-                                <i data-lucide="map" class="w-5 h-5 text-purple-700"></i> Hoja de Ruta General
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-6">
+                        <div class="lg:col-span-2 space-y-4">
+                            <h3 class="text-xl font-serif text-purple-950 flex items-center gap-2 font-bold">
+                                <i data-lucide="map" class="w-5 h-5 text-purple-700"></i> Módulos Formativos
                             </h3>
-                            
                             <div class="space-y-3">
                                 <div class="p-4 bg-purple-50/60 border border-purple-200 rounded-xl flex items-center justify-between">
                                     <div class="flex items-center gap-4">
                                         <span class="px-2.5 py-1 bg-purple-200 text-purple-900 text-xs font-mono-custom font-bold border border-purple-300 rounded">Módulo 1</span>
-                                        <div>
-                                            <h4 class="text-sm font-bold text-purple-950">Bases Teóricas & Lenguaje</h4>
-                                            <p class="text-xs text-gray-600">Encuentros 01 al 03</p>
-                                        </div>
+                                        <div><h4 class="text-sm font-bold text-purple-950">Bases Teóricas & Lenguaje</h4><p class="text-xs text-gray-600">Encuentros 01 al 03</p></div>
                                     </div>
                                     <i data-lucide="check-circle" class="w-5 h-5 text-purple-700"></i>
                                 </div>
-
                                 <div class="p-4 bg-purple-50/60 border border-purple-200 rounded-xl flex items-center justify-between">
                                     <div class="flex items-center gap-4">
                                         <span class="px-2.5 py-1 bg-purple-200 text-purple-900 text-xs font-mono-custom font-bold border border-purple-300 rounded">Módulo 2</span>
-                                        <div>
-                                            <h4 class="text-sm font-bold text-purple-950">Instituciones, ESI & Medios</h4>
-                                            <p class="text-xs text-gray-600">Encuentros 04 al 08</p>
-                                        </div>
+                                        <div><h4 class="text-sm font-bold text-purple-950">Instituciones, ESI & Medios</h4><p class="text-xs text-gray-600">Encuentros 04 al 08</p></div>
                                     </div>
                                     <i data-lucide="circle" class="w-5 h-5 text-purple-300"></i>
                                 </div>
-
                                 <div class="p-4 bg-purple-50/60 border border-purple-200 rounded-xl flex items-center justify-between">
                                     <div class="flex items-center gap-4">
                                         <span class="px-2.5 py-1 bg-purple-200 text-purple-900 text-xs font-mono-custom font-bold border border-purple-300 rounded">Módulo 3</span>
-                                        <div>
-                                            <h4 class="text-sm font-bold text-purple-950">Artivismos, Gestión & Proyecto Final</h4>
-                                            <p class="text-xs text-gray-600">Encuentros 09 al 12</p>
-                                        </div>
+                                        <div><h4 class="text-sm font-bold text-purple-950">Artivismos, Gestión & Proyecto Final</h4><p class="text-xs text-gray-600">Encuentros 09 al 12</p></div>
                                     </div>
                                     <i data-lucide="circle" class="w-5 h-5 text-purple-300"></i>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Docente Bio Profile -->
                         <div class="bg-purple-50 border border-purple-200 rounded-xl p-6 text-center flex flex-col items-center justify-between">
                             <div>
-                                <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-purple-500 mx-auto mb-4 shadow-sm grayscale hover:grayscale-0 transition duration-500">
+                                <div class="w-20 h-20 rounded-full overflow-hidden border-2 border-purple-500 mx-auto mb-3 shadow-sm">
                                     <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" alt="Claudia Quiroga" class="w-full h-full object-cover">
                                 </div>
-                                <h4 class="text-lg font-serif text-purple-950 font-bold">Claudia Quiroga</h4>
-                                <p class="text-xs text-purple-800 uppercase tracking-widest font-bold mb-3">Docente & Facilitadora</p>
+                                <h4 class="text-base font-serif text-purple-950 font-bold">Claudia Quiroga</h4>
+                                <p class="text-xs text-purple-800 uppercase tracking-widest font-bold mb-2">Docente & Facilitadora</p>
                                 <p class="text-xs text-gray-700 font-normal leading-relaxed">
                                     Artivista, directora teatral, educadora y comunicadora especializada en perspectiva de género e interseccionalidad.
                                 </p>
-                            </div>
-                            <div class="mt-6 w-full pt-4 border-t border-purple-200">
-                                <a href="mailto:hola@claudiaquiroga.com.ar" class="text-xs text-purple-900 font-bold hover:text-purple-700 flex items-center justify-center gap-2">
-                                    <i data-lucide="mail" class="w-3.5 h-3.5 text-purple-700"></i> Contacto directo
-                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ENCUENTRO 1 -->
+            <!-- TAB TAB: FORO GENERAL COMUNITARIO -->
+            <div id="foro-general" class="tab-content space-y-8">
+                <div class="bento-card p-8 lg:p-10">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-purple-100">
+                        <div>
+                            <span class="text-purple-800 font-mono-custom text-xs uppercase tracking-widest block mb-1 font-bold">Comunidad & Debate</span>
+                            <h2 class="text-3xl lg:text-4xl italic text-purple-950">Foro General del Trayecto</h2>
+                        </div>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-900 border border-purple-300 text-xs font-bold rounded-full flex items-center gap-1.5 self-start md:self-auto">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span> Publicación Permanente
+                        </span>
+                    </div>
+
+                    <!-- Formulario para publicar en el Foro -->
+                    <div class="p-6 bg-purple-50/70 border border-purple-200 rounded-2xl mb-8 space-y-4">
+                        <h3 class="text-sm font-bold text-purple-950 uppercase tracking-wider flex items-center gap-2">
+                            <i data-lucide="edit-3" class="w-4 h-4 text-purple-700"></i> Publicar en el Foro
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-bold text-purple-900 mb-1">Tu Nombre / Apodo:</label>
+                                <input type="text" id="forum-author" placeholder="Ej: María de Quilmes" class="w-full p-3 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600 shadow-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-purple-900 mb-1">Asociar a Encuentro:</label>
+                                <select id="forum-encounter-select" class="w-full p-3 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600 shadow-sm">
+                                    <option value="General">Foro General / Consulta Abierta</option>
+                                    <option value="Encuentro 01">Encuentro 01 - Narrativas de Género</option>
+                                    <option value="Encuentro 02">Encuentro 02 - El Cuerpo Situado</option>
+                                    <option value="Encuentro 03">Encuentro 03 - Desmontar Dramaturgia</option>
+                                    <option value="Encuentro 04">Encuentro 04 - Comunicación e Institución</option>
+                                    <option value="Encuentro 05">Encuentro 05 - Poéticas Visuales</option>
+                                    <option value="Encuentro 06">Encuentro 06 - ESI en Territorio</option>
+                                    <option value="Encuentro 07">Encuentro 07 - Interseccionalidad</option>
+                                    <option value="Encuentro 08">Encuentro 08 - Cuidados Digitales</option>
+                                    <option value="Encuentro 09">Encuentro 09 - Artivismos</option>
+                                    <option value="Encuentro 10">Encuentro 10 - Gestión Cultural</option>
+                                    <option value="Encuentro 11">Encuentro 11 - Producción</option>
+                                    <option value="Encuentro 12">Encuentro 12 - Muestra Final</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-purple-900 mb-1">Mensaje o Inquietud:</label>
+                            <textarea id="forum-content" rows="3" placeholder="Escribí aquí tus reflexiones o preguntas para compartir con Claudia y la comunidad..." class="w-full p-3 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600 shadow-sm"></textarea>
+                        </div>
+                        <div class="flex justify-end">
+                            <button onclick="submitForumPost()" class="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs rounded-xl flex items-center gap-2 shadow-md transition">
+                                <i data-lucide="send" class="w-4 h-4"></i> Publicar en el Foro
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Lista Dinámica de Comentarios del Foro -->
+                    <div class="space-y-4">
+                        <h3 class="text-base font-serif text-purple-950 font-bold flex items-center gap-2">
+                            <i data-lucide="message-square" class="w-4 h-4 text-purple-700"></i> Comentarios de la Comunidad
+                        </h3>
+                        
+                        <div id="forum-posts-list" class="space-y-4">
+                            <!-- Injected dynamically via JS / Firebase -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENCUENTRO 1 CON BLOQUE DE FORO -->
             <div id="encuentro-1" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-purple-100">
@@ -562,16 +538,16 @@
                     <div id="lf-e1" class="lf-box">
                         <p class="text-sm text-purple-950 leading-relaxed font-normal">
                             <strong class="text-purple-900 font-bold block mb-1">Resumen en Lectura Sencilla:</strong>
-                            • En esta clase analizamos cómo los medios y las instituciones usan las palabras y las imágenes.<br>
-                            • Aprendemos a detectar estereotipos de género en los mensajes cotidianos.<br>
-                            • Mirá el video completo y descargá la lectura sugerida.
+                            • Analizamos cómo las instituciones usan las palabras y las imágenes.<br>
+                            • Aprendemos a detectar estereotipos en mensajes cotidianos.<br>
+                            • Mirá el video completo y participá en el espacio de debate.
                         </p>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
                         <div class="lg:col-span-7 space-y-4">
                             <div class="video-container shadow-md">
-                                <iframe src="https://www.youtube.com/embed/khCrpueNUSg" title="Encuentro 1 - Grabación Sincrónica"></iframe>
+                                <iframe src="https://www.youtube.com/embed/khCrpueNUSg" title="Encuentro 1"></iframe>
                             </div>
                             <p class="text-xs text-purple-800 font-semibold text-center font-mono-custom">Grabación del encuentro en vivo (Duración: 1h 45min)</p>
                         </div>
@@ -580,13 +556,8 @@
                             <div class="space-y-4">
                                 <h3 class="text-lg font-serif text-purple-950 font-bold">Introducción al Encuentro</h3>
                                 <p class="text-sm text-gray-700 font-normal leading-relaxed">
-                                    Iniciamos nuestro recorrido problematizando la noción de neutralidad en la comunicación pública y comunitaria. Revisamos los marcos conceptuales sobre cómo la palabra construye territorio e invisibiliza identidades.
+                                    Iniciamos nuestro recorrido problematizando la noción de neutralidad en la comunicación pública y comunitaria. Revisamos los marcos conceptuales sobre cómo la palabra construye territorio.
                                 </p>
-                                <ul class="text-xs text-gray-700 space-y-2 pt-2">
-                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-700"></span> Definición de androcentrismo comunicacional</li>
-                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-700"></span> Marcos normativos y leyes de medios situadas</li>
-                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-700"></span> Análisis de casos en prensa e instituciones</li>
-                                </ul>
                             </div>
 
                             <div class="space-y-3 pt-4 border-t border-purple-100">
@@ -594,275 +565,8 @@
                                     <span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-purple-700"></i> Bibliografía Obligatoria (PDF)</span>
                                     <i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i>
                                 </a>
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-xl flex items-center justify-between transition shadow-md shadow-purple-200">
-                                    <span class="flex items-center gap-2.5"><i data-lucide="message-square" class="w-4 h-4"></i> Entrar al Foro & Recurso X</span>
-                                    <i data-lucide="external-link" class="w-4 h-4"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ENCUENTRO 2 -->
-            <div id="encuentro-2" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-purple-100">
-                        <div>
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100">Encuentro 02</span>
-                                <span class="text-purple-800 text-xs font-mono-custom font-semibold">Sincrónico &bull; Módulo 1</span>
-                            </div>
-                            <h2 class="text-3xl lg:text-4xl italic text-purple-950">El Cuerpo Situado y la Escena Territorial</h2>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button onclick="toggleLF('lf-e2')" class="px-3.5 py-2 rounded-lg bg-purple-100 border border-purple-300 text-purple-900 text-xs font-bold flex items-center gap-2 hover:bg-purple-200 transition">
-                                <i data-lucide="file-text" class="w-4 h-4 text-purple-700"></i> Lectura Fácil
-                            </button>
-                            <button onclick="playAudioNarrative('Encuentro 2')" class="px-3.5 py-2 rounded-lg bg-purple-700 text-white text-xs font-bold flex items-center gap-2 hover:bg-purple-800 transition shadow-md shadow-purple-300">
-                                <i data-lucide="volume-2" class="w-4 h-4"></i> Escuchar Audio
-                            </button>
-                        </div>
-                    </div>
-
-                    <div id="lf-e2" class="lf-box">
-                        <p class="text-sm text-purple-950 leading-relaxed font-normal">
-                            <strong class="text-purple-900 font-bold block mb-1">Resumen en Lectura Sencilla:</strong>
-                            • Pensamos el cuerpo como el primer espacio que habitamos.<br>
-                            • Reflexionamos sobre la presencia física en talleres, aulas y espacios comunitarios.<br>
-                            • Accedé a las lecturas en PDF y compartí tu opinión en el espacio de debate.
-                        </p>
-                    </div>
-
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-                        <div class="lg:col-span-7 space-y-4">
-                            <div class="video-container shadow-md">
-                                <iframe src="https://www.youtube.com/embed/sN9o-9L8C-E" title="Encuentro 2 - Grabación Sincrónica"></iframe>
-                            </div>
-                            <p class="text-xs text-purple-800 font-semibold text-center font-mono-custom">Grabación del encuentro en vivo (Duración: 1h 30min)</p>
-                        </div>
-
-                        <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-serif text-purple-950 font-bold">Introducción al Encuentro</h3>
-                                <p class="text-sm text-gray-700 font-normal leading-relaxed">
-                                    Tratamos la corporeidad como territorio de memoria y resistencia. Indagamos en cómo las prácticas artísticas y teatrales permiten desarticular narrativas hegemónicas sobre los cuerpos.
-                                </p>
-                            </div>
-
-                            <div class="space-y-3 pt-4 border-t border-purple-100">
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-50 border border-purple-200 hover:bg-purple-100 text-purple-950 text-xs font-bold rounded-xl flex items-center justify-between transition">
-                                    <span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-purple-700"></i> Bibliografía Encuentro 2 (PDF)</span>
-                                    <i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i>
-                                </a>
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-xl flex items-center justify-between transition shadow-md shadow-purple-200">
-                                    <span class="flex items-center gap-2.5"><i data-lucide="folder-kanban" class="w-4 h-4"></i> Recurso Didáctico Adjunto</span>
-                                    <i data-lucide="external-link" class="w-4 h-4"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ENCUENTRO 3 -->
-            <div id="encuentro-3" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-purple-100">
-                        <div>
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100">Encuentro 03</span>
-                                <span class="text-purple-800 text-xs font-mono-custom font-semibold">Sincrónico &bull; Módulo 1</span>
-                            </div>
-                            <h2 class="text-3xl lg:text-4xl italic text-purple-950">Desmontar la Dramaturgia Hegemónica</h2>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button onclick="toggleLF('lf-e3')" class="px-3.5 py-2 rounded-lg bg-purple-100 border border-purple-300 text-purple-900 text-xs font-bold flex items-center gap-2 hover:bg-purple-200 transition"><i data-lucide="file-text" class="w-4 h-4 text-purple-700"></i> Lectura Fácil</button>
-                            <button onclick="playAudioNarrative('Encuentro 3')" class="px-3.5 py-2 rounded-lg bg-purple-700 text-white text-xs font-bold flex items-center gap-2 hover:bg-purple-800 transition"><i data-lucide="volume-2" class="w-4 h-4"></i> Escuchar Audio</button>
-                        </div>
-                    </div>
-                    <div id="lf-e3" class="lf-box"><p class="text-sm text-purple-950 font-normal">• Leemos obras de teatro y textos desde una mirada crítica feminista.<br>• Descargá la carpeta de textos teatrales en PDF.</p></div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
-                        <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Análisis de estructuras dramáticas canónicas y exploración de poéticas feministas contemporáneas. ¿Cómo reescribir los conflictos sin reproducir la violencia?</p>
-                            <div class="space-y-3 pt-4 border-t border-purple-100">
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex items-center justify-between"><span class="flex items-center gap-2.5"><i data-lucide="file-text" class="w-4 h-4 text-purple-700"></i> Antología de Textos (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex items-center justify-between"><span class="flex items-center gap-2.5"><i data-lucide="message-square" class="w-4 h-4"></i> Foro de Escritura Colectiva</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ENCUENTROS 4 AL 12 -->
-            <div id="encuentro-4" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div>
-                            <span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100 mb-2 inline-block">Encuentro 04</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-purple-950">Comunicación e Institución con Perspectiva</h2>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div></div>
-                        <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Estrategias para transformar las comunicaciones oficiales dentro de organizaciones e instituciones públicas.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Guía de Estilo Institucional (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Plantilla de Protocolo</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="encuentro-5" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div>
-                            <span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100 mb-2 inline-block">Encuentro 05</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-purple-950">Poéticas Visuales & Lenguaje Inclusivo</h2>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
-                        <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Cómo combinar el diseño gráfico, la fotografía no estereotipada y el lenguaje no sexista para campañas con impacto social.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Manual Visual (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Banco de Imágenes Libres</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="encuentro-6" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div>
-                            <span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100 mb-2 inline-block">Encuentro 06</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-purple-950">ESI en Territorios Comunitarios</h2>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
-                        <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Estrategias de intervención en centros culturales, comedores y organizaciones de barrio para la transversalidad de la ESI.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Bibliografía ESI (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Kits de Dinámicas</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Encuentros 7 a 12 -->
-            <div id="encuentro-7" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100 mb-2 inline-block">Encuentro 07</span><h2 class="text-3xl lg:text-4xl italic text-purple-950">Interseccionalidad & Medios</h2></div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div></div>
-                        <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Cruces entre clase, raza, género y capacitismo en las narrativas mediáticas contemporáneas.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Lectura Interseccional (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Análisis de Caso</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="encuentro-8" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100 mb-2 inline-block">Encuentro 08</span><h2 class="text-3xl lg:text-4xl italic text-purple-950">Discursos de Odio & Cuidados Digitales</h2></div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
-                        <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Protección de redes sociales, respuesta colectiva ante violencia digital y estrategias de autocuidado en entornos virtuales.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Guía Ciberpatrullaje & Cuidado (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Recursos de Denuncia</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="encuentro-9" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100 mb-2 inline-block">Encuentro 09</span><h2 class="text-3xl lg:text-4xl italic text-purple-950">Artivismos & Archivos Vivos</h2></div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
-                        <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">El arte como acción política directa en las calles y la construcción de archivos colectivos comunitarios.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Catálogo de Artivismos (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Galería de Muestras</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="encuentro-10" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100 mb-2 inline-block">Encuentro 10</span><h2 class="text-3xl lg:text-4xl italic text-purple-950">Gestión Cultural Feminista</h2></div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div></div>
-                        <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Modelos de gestión colaborativa, economía social y redes de sostenibilidad para espacios culturales independientes.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Manual de Gestión (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Modelos de Presupuesto</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="encuentro-11" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-100 mb-2 inline-block">Encuentro 11</span><h2 class="text-3xl lg:text-4xl italic text-purple-950">Producción & Financiamiento</h2></div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
-                        <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Convocatorias públicas, fondos de mecenazgo y estrategias de sostenimiento económico autogestivo.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Guía de Convocatorias (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Formulario de Pitches</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="encuentro-12" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10 border-purple-300">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div><span class="px-2.5 py-0.5 bg-purple-700 text-white text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded mb-2 inline-block">Encuentro 12 &bull; Cierre</span><h2 class="text-3xl lg:text-4xl italic text-purple-950">Cierre Colectivo & Muestra de Proyectos</h2></div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
-                        <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Presentación de las bitácoras finales, devoluciones entre pares y cierre del trayecto formativo INVENTARIA 2026.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Compilado de Trabajos (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <button onclick="openTab(null, 'verificacion')" class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl flex items-center justify-between shadow-md shadow-emerald-200">
-                                    <span class="flex items-center gap-2"><i data-lucide="award" class="w-4 h-4"></i> Ir a la Verificación Final</span>
+                                <button onclick="openTab(null, 'foro-general')" class="w-full py-3.5 px-4 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-xl flex items-center justify-between transition shadow-md shadow-purple-200">
+                                    <span class="flex items-center gap-2.5"><i data-lucide="message-square" class="w-4 h-4"></i> Ir al Foro Comunitario</span>
                                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
                                 </button>
                             </div>
@@ -870,6 +574,37 @@
                     </div>
                 </div>
             </div>
+
+            <!-- ENCUENTROS 2 AL 12 -->
+            <div id="encuentro-2" class="tab-content space-y-8">
+                <div class="bento-card p-8 lg:p-10">
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
+                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] font-mono-custom font-bold rounded bg-purple-100 mb-2 inline-block">Encuentro 02</span><h2 class="text-3xl lg:text-4xl italic text-purple-950">El Cuerpo Situado</h2></div>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
+                        <div class="lg:col-span-5 space-y-6">
+                            <p class="text-sm text-gray-700">Corporeidad como territorio de memoria y resistencia en la práctica artística.</p>
+                            <div class="space-y-3">
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Bibliografía PDF</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <button onclick="openTab(null, 'foro-general')" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Ver Conversación en Foro</span><i data-lucide="arrow-right" class="w-4 h-4"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Encuentros 3 al 12 simples -->
+            <div id="encuentro-3" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 03: Desmontar la Dramaturgia</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <div id="encuentro-4" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 04: Comunicación e Institución</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <div id="encuentro-5" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 05: Poéticas Visuales</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <div id="encuentro-6" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 06: ESI en Territorio</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <div id="encuentro-7" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 07: Interseccionalidad</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <div id="encuentro-8" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 08: Cuidados Digitales</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <div id="encuentro-9" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 09: Artivismos</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <div id="encuentro-10" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 10: Gestión Cultural</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <div id="encuentro-11" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 11: Producción</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <div id="encuentro-12" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 12: Cierre Colectivo</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
 
             <!-- TAB VERIFICACIÓN DE CONTENIDOS -->
             <div id="verificacion" class="tab-content space-y-8">
@@ -880,74 +615,32 @@
                         <p class="text-gray-600 text-sm font-normal">Responde estas breves preguntas para autoevaluar los conceptos trabajados durante los 12 encuentros.</p>
                     </div>
 
-                    <!-- Step 1 -->
                     <div id="q1" class="quiz-step active space-y-4">
-                        <div class="flex justify-between items-center text-xs text-purple-800 font-mono-custom mb-2 font-bold">
-                            <span>Pregunta 1 de 4</span>
-                            <span>Módulo 1</span>
-                        </div>
+                        <div class="flex justify-between items-center text-xs text-purple-800 font-mono-custom mb-2 font-bold"><span>Pregunta 1 de 2</span><span>Módulo 1</span></div>
                         <h3 class="text-xl text-purple-950 font-serif font-bold">¿Por qué afirmamos que la comunicación institucional no es neutral?</h3>
                         <div class="space-y-2">
                             <button class="option-btn" onclick="nextQ('q1', 'q2')">a) Porque transmite y reproduce valores culturales y jerarquías sociales preexistentes.</button>
                             <button class="option-btn" onclick="nextQ('q1', 'q2')">b) Únicamente por razones comerciales de los medios de comunicación.</button>
-                            <button class="option-btn" onclick="nextQ('q1', 'q2')">c) Porque solo se aplica en campañas políticas.</button>
                         </div>
                     </div>
 
-                    <!-- Step 2 -->
                     <div id="q2" class="quiz-step space-y-4">
-                        <div class="flex justify-between items-center text-xs text-purple-800 font-mono-custom mb-2 font-bold">
-                            <span>Pregunta 2 de 4</span>
-                            <span>Módulo 2</span>
-                        </div>
+                        <div class="flex justify-between items-center text-xs text-purple-800 font-mono-custom mb-2 font-bold"><span>Pregunta 2 de 2</span><span>Cierre</span></div>
                         <h3 class="text-xl text-purple-950 font-serif font-bold">La perspectiva interseccional en el territorio implica considerar:</h3>
                         <div class="space-y-2">
-                            <button class="option-btn" onclick="nextQ('q2', 'q3')">a) Solamente las diferencias de género sin contemplar otras variables.</button>
-                            <button class="option-btn" onclick="nextQ('q2', 'q3')">b) El cruce simultáneo entre género, clase, etnicidad, edad y territorio.</button>
-                            <button class="option-btn" onclick="nextQ('q2', 'q3')">c) Exclusivamente aspectos normativos y leyes internacionales.</button>
+                            <button class="option-btn" onclick="finishQuiz()">a) Solamente las diferencias de género sin contemplar otras variables.</button>
+                            <button class="option-btn" onclick="finishQuiz()">b) El cruce simultáneo entre género, clase, etnicidad, edad y territorio.</button>
                         </div>
                     </div>
 
-                    <!-- Step 3 -->
-                    <div id="q3" class="quiz-step space-y-4">
-                        <div class="flex justify-between items-center text-xs text-purple-800 font-mono-custom mb-2 font-bold">
-                            <span>Pregunta 3 de 4</span>
-                            <span>Módulo 3</span>
-                        </div>
-                        <h3 class="text-xl text-purple-950 font-serif font-bold">¿Qué busca un proyecto de Artivismo Comunitario?</h3>
-                        <div class="space-y-2">
-                            <button class="option-btn" onclick="nextQ('q3', 'q4')">a) Entretener de manera pasiva sin generar debates locales.</button>
-                            <button class="option-btn" onclick="nextQ('q3', 'q4')">b) Vincular la potencia estética y del arte con la transformación social e incidir en el territorio.</button>
-                        </div>
-                    </div>
-
-                    <!-- Step 4 -->
-                    <div id="q4" class="quiz-step space-y-4">
-                        <div class="flex justify-between items-center text-xs text-purple-800 font-mono-custom mb-2 font-bold">
-                            <span>Pregunta 4 de 4</span>
-                            <span>Cierre</span>
-                        </div>
-                        <h3 class="text-xl text-purple-950 font-serif font-bold">¿La ESI es una herramienta utilizable solo en escuelas primarias?</h3>
-                        <div class="space-y-2">
-                            <button class="option-btn" onclick="finishQuiz()">a) Verdadero, solo aplica al ámbito escolar obligatorio.</button>
-                            <button class="option-btn" onclick="finishQuiz()">b) Falso, es un derecho transversal utilizable en espacios comunitarios, artísticos y culturales.</button>
-                        </div>
-                    </div>
-
-                    <!-- Quiz Final Finished -->
                     <div id="quiz-final" class="quiz-step text-center py-8 space-y-6">
                         <div class="w-16 h-16 rounded-full bg-emerald-100 border border-emerald-400 text-emerald-800 flex items-center justify-center mx-auto text-2xl">
                             <i data-lucide="award" class="w-8 h-8"></i>
                         </div>
                         <h3 class="text-3xl text-purple-950 font-serif font-bold">¡Felicitaciones!</h3>
                         <p class="text-gray-700 max-w-md mx-auto font-normal text-sm leading-relaxed">
-                            Has completado la verificación de contenidos correspondientes a los 12 Encuentros del trayecto <strong class="text-purple-950">INVENTARIA 2026</strong>.
+                            Has completado la verificación de contenidos del trayecto <strong class="text-purple-950">INVENTARIA 2026</strong>.
                         </p>
-                        <div class="pt-4 flex justify-center gap-4">
-                            <button onclick="location.reload()" class="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs rounded-xl uppercase tracking-widest shadow-md">
-                                Reiniciar Evaluación
-                            </button>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -955,23 +648,189 @@
         </main>
     </div>
 
-    <!-- Audio Notification -->
+    <!-- Audio Modal -->
     <div id="audio-modal" class="fixed bottom-6 right-6 z-50 bg-white border border-purple-300 p-4 rounded-xl shadow-2xl hidden flex items-center gap-4 max-w-sm">
-        <div class="p-3 bg-purple-700 text-white rounded-lg animate-pulse">
-            <i data-lucide="volume-2" class="w-5 h-5"></i>
-        </div>
+        <div class="p-3 bg-purple-700 text-white rounded-lg animate-pulse"><i data-lucide="volume-2" class="w-5 h-5"></i></div>
         <div>
             <p class="text-xs font-bold text-purple-950">Reproduciendo Narración</p>
             <p id="audio-title" class="text-[10px] text-purple-800 font-mono-custom font-semibold">Encuentro 01</p>
         </div>
-        <button onclick="closeAudioModal()" class="text-purple-400 hover:text-purple-900 ml-auto">
-            <i data-lucide="x" class="w-4 h-4"></i>
-        </button>
+        <button onclick="closeAudioModal()" class="text-purple-400 hover:text-purple-900 ml-auto"><i data-lucide="x" class="w-4 h-4"></i></button>
     </div>
 
-    <!-- JavaScript Logic -->
+    <!-- JavaScript Logic & Firebase Integration -->
     <script>
+        // ==========================================
+        // CONFIGURACIÓN DE FIREBASE (NUBE PERMANENTE)
+        // ==========================================
+        // Reemplaza los siguientes valores con las claves que obtienes en console.firebase.google.com
+        const firebaseConfig = {
+                apiKey: "AIzaSyCYxCRMl6gMDOkMsCU9q1xAflFRZAhQC_0",
+    authDomain: "inventaria-12177.firebaseapp.com",
+    projectId: "inventaria-12177",
+    storageBucket: "inventaria-12177.firebasestorage.app",
+    messagingSenderId: "854869962533",
+    appId: "1:854869962533:web:f71b4a1d897b2b896434cc",
+    measurementId: "G-Z4WSB0246V"
+        };
+
+        let db = null;
+        let isFirebaseConnected = false;
+
+        // Intentar inicializar Firebase
+        try {
+            if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "TU_API_KEY_AQUI") {
+                firebase.initializeApp(firebaseConfig);
+                db = firebase.firestore();
+                isFirebaseConnected = true;
+                
+                // Actualizar badge de estado
+                document.getElementById('db-status-dot').className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
+                document.getElementById('db-status-text').textContent = "Base en Tiempo Real (Nube)";
+            }
+        } catch (e) {
+            console.log("Firebase no configurado aún. Usando LocalStorage como respaldo.");
+        }
+
+        // ==========================================
+        // MANEJO DE PUBLICACIONES DEL FORO
+        // ==========================================
+        let defaultInitialPosts = [
+            {
+                id: 'p1',
+                author: 'Claudia Quiroga (Docente)',
+                encounter: 'General',
+                content: '¡Bienvenidxs a todas y todos al Aula Virtual de INVENTARIA! Este foro estará abierto durante todo nuestro recorrido de 12 encuentros. Quedo atenta a sus lecturas e inquietudes.',
+                likes: 5,
+                timestamp: 'Publicado hoy'
+            },
+            {
+                id: 'p2',
+                author: 'Mariana S.',
+                encounter: 'Encuentro 01',
+                content: 'Excelente la primera clase sobre androcentrismo en la comunicación pública. Me sirvió mucho la lectura en PDF para pensar la cartelería de mi municipio.',
+                likes: 3,
+                timestamp: 'Hace 2 horas'
+            }
+        ];
+
+        function loadForumPosts() {
+            if (isFirebaseConnected && db) {
+                // Escuchar cambios en tiempo real desde Firebase
+                db.collection("foros").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
+                    let posts = [];
+                    snapshot.forEach((doc) => {
+                        posts.push({ id: doc.id, ...doc.data() });
+                    });
+                    renderForumPosts(posts);
+                });
+            } else {
+                // Cargar desde LocalStorage o usar valores por defecto
+                let localPosts = JSON.parse(localStorage.getItem('inventaria_forum_posts'));
+                if (!localPosts) {
+                    localPosts = defaultInitialPosts;
+                    localStorage.setItem('inventaria_forum_posts', JSON.stringify(localPosts));
+                }
+                renderForumPosts(localPosts);
+            }
+        }
+
+        function renderForumPosts(posts) {
+            const listContainer = document.getElementById('forum-posts-list');
+            if (!listContainer) return;
+
+            if (posts.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-purple-800 font-mono-custom p-4 text-center">Aún no hay mensajes. ¡Sé la primera persona en escribir!</p>`;
+                return;
+            }
+
+            listContainer.innerHTML = posts.map(post => `
+                <div class="p-5 bg-white border border-purple-200 rounded-2xl shadow-sm space-y-2 transition hover:border-purple-300">
+                    <div class="flex justify-between items-start gap-2">
+                        <div class="flex items-center gap-2">
+                            <div class="w-7 h-7 rounded-full bg-purple-200 text-purple-900 text-xs font-bold flex items-center justify-center">
+                                ${post.author ? post.author.substring(0, 2).toUpperCase() : 'AN'}
+                            </div>
+                            <div>
+                                <h4 class="text-xs font-bold text-purple-950">${post.author || 'Anónimo'}</h4>
+                                <span class="text-[10px] text-purple-700 font-mono-custom font-semibold">${post.timestamp || 'Reciente'}</span>
+                            </div>
+                        </div>
+                        <span class="px-2 py-0.5 bg-purple-100 text-purple-900 text-[10px] font-bold rounded-full border border-purple-200">
+                            ${post.encounter || 'General'}
+                        </span>
+                    </div>
+                    <p class="text-xs text-gray-700 font-normal leading-relaxed pt-1">${post.content}</p>
+                    <div class="pt-2 flex justify-between items-center border-t border-purple-50">
+                        <button onclick="likePost('${post.id}', ${post.likes || 0})" class="text-[11px] text-purple-800 hover:text-purple-950 font-bold flex items-center gap-1.5 transition">
+                            <i data-lucide="heart" class="w-3.5 h-3.5 text-purple-600"></i> ${post.likes || 0} Me gusta
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+
+            lucide.createIcons();
+        }
+
+        function submitForumPost() {
+            const authorInput = document.getElementById('forum-author');
+            const encounterSelect = document.getElementById('forum-encounter-select');
+            const contentInput = document.getElementById('forum-content');
+
+            const author = authorInput.value.trim() || 'Estudiante';
+            const encounter = encounterSelect.value;
+            const content = contentInput.value.trim();
+
+            if (!content) {
+                alert('Por favor, escribí un mensaje antes de publicar.');
+                return;
+            }
+
+            const newPost = {
+                author: author,
+                encounter: encounter,
+                content: content,
+                likes: 0,
+                timestamp: new Date().toLocaleDateString('es-AR') + ' ' + new Date().toLocaleTimeString('es-AR', {hour: '2-digit', minute:'2-digit'})
+            };
+
+            if (isFirebaseConnected && db) {
+                // Guardar en la nube (Firebase Firestore)
+                db.collection("foros").add(newPost).then(() => {
+                    contentInput.value = '';
+                }).catch(err => console.error("Error al publicar en la nube: ", err));
+            } else {
+                // Guardar localmente
+                let localPosts = JSON.parse(localStorage.getItem('inventaria_forum_posts')) || defaultInitialPosts;
+                newPost.id = 'p_' + Date.now();
+                localPosts.unshift(newPost);
+                localStorage.setItem('inventaria_forum_posts', JSON.stringify(localPosts));
+                contentInput.value = '';
+                renderForumPosts(localPosts);
+            }
+        }
+
+        function likePost(postId, currentLikes) {
+            if (isFirebaseConnected && db) {
+                db.collection("foros").doc(postId).update({
+                    likes: currentLikes + 1
+                });
+            } else {
+                let localPosts = JSON.parse(localStorage.getItem('inventaria_forum_posts')) || [];
+                const postIndex = localPosts.findIndex(p => p.id === postId);
+                if (postIndex !== -1) {
+                    localPosts[postIndex].likes = (localPosts[postIndex].likes || 0) + 1;
+                    localStorage.setItem('inventaria_forum_posts', JSON.stringify(localPosts));
+                    renderForumPosts(localPosts);
+                }
+            }
+        }
+
+        // ==========================================
+        // NAVEGACIÓN Y TABS
+        // ==========================================
         lucide.createIcons();
+        loadForumPosts();
 
         function openTab(evt, tabId) {
             const contents = document.querySelectorAll('.tab-content');
@@ -1037,10 +896,10 @@
         }
 
         function finishQuiz() {
-            const q4 = document.getElementById('q4');
+            const q2 = document.getElementById('q2');
             const quizFinal = document.getElementById('quiz-final');
-            if (q4 && quizFinal) {
-                q4.classList.remove('active');
+            if (q2 && quizFinal) {
+                q2.classList.remove('active');
                 quizFinal.classList.add('active');
             }
         }
@@ -1054,4 +913,3 @@
     </script>
 </body>
 </html>
-
