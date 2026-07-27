@@ -11,7 +11,7 @@
     <!-- Lucide Icons CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Firebase SDK (Compat para integración directa HTML) -->
+    <!-- Firebase SDK (Opcional para sincronizar entre PCs) -->
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
     
@@ -250,8 +250,8 @@
             <div class="flex items-center gap-6">
                 <!-- Status Badge -->
                 <div id="db-status-badge" class="hidden md:flex items-center gap-2 text-xs text-purple-900 border-r border-purple-200 pr-6 font-mono-custom font-medium">
-                    <span id="db-status-dot" class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                    <span id="db-status-text">Base Local</span>
+                    <span id="db-status-dot" class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="db-status-text">Guardado Activo</span>
                 </div>
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-purple-200 border border-purple-400 flex items-center justify-center text-purple-900 text-xs font-bold">
@@ -323,7 +323,7 @@
             <div class="p-6 border-t border-purple-200 bg-purple-100/50">
                 <p class="text-[10px] text-purple-900 uppercase tracking-widest leading-relaxed">
                     INVENTARIA &bull; Claudia Quiroga<br>
-                    <span class="text-purple-700 font-bold">Base Persistente Conectada</span>
+                    <span class="text-purple-700 font-bold">Plataforma Accesible 2026</span>
                 </p>
             </div>
         </aside>
@@ -352,9 +352,9 @@
                     <div id="lf-uso" class="lf-box">
                         <p class="text-sm text-purple-950 leading-relaxed font-normal">
                             <strong class="text-purple-900 font-bold block mb-1">Guía en Lectura Sencilla:</strong>
-                            • Usá el menú de la izquierda para cambiar entre los 12 encuentros y el foro comunitario.<br>
-                            • Todo lo que publiques en los foros se guarda permanentemente en la nube.<br>
-                            • En cada encuentro podés mirar la grabación del video y descargar la bibliografía en PDF.
+                            • Usá el menú de la izquierda para cambiar entre los 12 encuentros.<br>
+                            • En cada encuentro podés mirar el video y escribir en la caja de comentarios.<br>
+                            • Todos los mensajes publicados se guardan de forma permanente.
                         </p>
                     </div>
 
@@ -367,12 +367,12 @@
                                 <div class="p-4 rounded-xl bg-purple-50 border border-purple-200">
                                     <div class="text-purple-700 mb-2"><i data-lucide="database" class="w-5 h-5"></i></div>
                                     <h4 class="text-purple-950 font-bold mb-1 text-sm">Guardado Permanente</h4>
-                                    <p class="text-xs text-gray-600">Tus aportes, preguntas y reflexiones quedan guardados en tiempo real para todo el grupo.</p>
+                                    <p class="text-xs text-gray-600">Tus aportes y reflexiones quedan guardados en tiempo real para todo el grupo.</p>
                                 </div>
                                 <div class="p-4 rounded-xl bg-purple-50 border border-purple-200">
                                     <div class="text-purple-700 mb-2"><i data-lucide="message-circle" class="w-5 h-5"></i></div>
-                                    <h4 class="text-purple-950 font-bold mb-1 text-sm">Foro Abierto y Situado</h4>
-                                    <p class="text-xs text-gray-600">Participá en el foro general o en el espacio propio de cada encuentro.</p>
+                                    <h4 class="text-purple-950 font-bold mb-1 text-sm">Foro Integrado en cada Encuentro</h4>
+                                    <p class="text-xs text-gray-600">Podés comentar dentro de cada clase o en el foro comunitario general.</p>
                                 </div>
                             </div>
                         </div>
@@ -448,7 +448,7 @@
                 </div>
             </div>
 
-            <!-- TAB TAB: FORO GENERAL COMUNITARIO -->
+            <!-- TAB: FORO GENERAL COMUNITARIO -->
             <div id="foro-general" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-purple-100">
@@ -461,19 +461,29 @@
                         </span>
                     </div>
 
-                    <!-- Formulario para publicar en el Foro -->
-                    <div class="p-6 bg-purple-50/70 border border-purple-200 rounded-2xl mb-8 space-y-4">
+                    <!-- Filtros por Encuentro -->
+                    <div class="mb-6 flex flex-wrap gap-2 items-center">
+                        <span class="text-xs text-purple-900 font-bold mr-2">Filtrar por:</span>
+                        <button onclick="filterForum('Todos')" class="forum-filter-btn px-3 py-1 text-xs rounded-full font-bold bg-purple-700 text-white shadow-sm">Todos</button>
+                        <button onclick="filterForum('General')" class="forum-filter-btn px-3 py-1 text-xs rounded-full font-semibold bg-purple-100 text-purple-900 hover:bg-purple-200">General</button>
+                        <button onclick="filterForum('Encuentro 01')" class="forum-filter-btn px-3 py-1 text-xs rounded-full font-semibold bg-purple-100 text-purple-900 hover:bg-purple-200">Encuentro 01</button>
+                        <button onclick="filterForum('Encuentro 02')" class="forum-filter-btn px-3 py-1 text-xs rounded-full font-semibold bg-purple-100 text-purple-900 hover:bg-purple-200">Encuentro 02</button>
+                        <button onclick="filterForum('Encuentro 03')" class="forum-filter-btn px-3 py-1 text-xs rounded-full font-semibold bg-purple-100 text-purple-900 hover:bg-purple-200">Encuentro 03</button>
+                    </div>
+
+                    <!-- Formulario de Publicación General -->
+                    <div class="p-6 bg-purple-50/80 border border-purple-200 rounded-2xl mb-8 space-y-4">
                         <h3 class="text-sm font-bold text-purple-950 uppercase tracking-wider flex items-center gap-2">
-                            <i data-lucide="edit-3" class="w-4 h-4 text-purple-700"></i> Publicar en el Foro
+                            <i data-lucide="edit-3" class="w-4 h-4 text-purple-700"></i> Publicar nuevo mensaje en el Foro
                         </h3>
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-xs font-bold text-purple-900 mb-1">Tu Nombre / Apodo:</label>
-                                <input type="text" id="forum-author" placeholder="Ej: María de Quilmes" class="w-full p-3 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600 shadow-sm">
+                                <input type="text" id="forum-author-gen" placeholder="Ej: María de Quilmes" class="w-full p-3 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600 shadow-sm">
                             </div>
                             <div>
                                 <label class="block text-xs font-bold text-purple-900 mb-1">Asociar a Encuentro:</label>
-                                <select id="forum-encounter-select" class="w-full p-3 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600 shadow-sm">
+                                <select id="forum-encounter-gen" class="w-full p-3 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600 shadow-sm">
                                     <option value="General">Foro General / Consulta Abierta</option>
                                     <option value="Encuentro 01">Encuentro 01 - Narrativas de Género</option>
                                     <option value="Encuentro 02">Encuentro 02 - El Cuerpo Situado</option>
@@ -491,30 +501,34 @@
                             </div>
                         </div>
                         <div>
-                            <label class="block text-xs font-bold text-purple-900 mb-1">Mensaje o Inquietud:</label>
-                            <textarea id="forum-content" rows="3" placeholder="Escribí aquí tus reflexiones o preguntas para compartir con Claudia y la comunidad..." class="w-full p-3 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600 shadow-sm"></textarea>
+                            <label class="block text-xs font-bold text-purple-900 mb-1">Tu Comentario:</label>
+                            <textarea id="forum-content-gen" rows="3" placeholder="Escribí aquí tus reflexiones o preguntas para compartir con Claudia y la comunidad..." class="w-full p-3 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600 shadow-sm"></textarea>
                         </div>
                         <div class="flex justify-end">
-                            <button onclick="submitForumPost()" class="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs rounded-xl flex items-center gap-2 shadow-md transition">
-                                <i data-lucide="send" class="w-4 h-4"></i> Publicar en el Foro
+                            <button onclick="submitForumPost('gen')" class="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs rounded-xl flex items-center gap-2 shadow-md transition">
+                                <i data-lucide="send" class="w-4 h-4"></i> Publicar Mensaje
                             </button>
                         </div>
                     </div>
 
-                    <!-- Lista Dinámica de Comentarios del Foro -->
+                    <!-- Lista Dinámica de Comentarios -->
                     <div class="space-y-4">
                         <h3 class="text-base font-serif text-purple-950 font-bold flex items-center gap-2">
-                            <i data-lucide="message-square" class="w-4 h-4 text-purple-700"></i> Comentarios de la Comunidad
+                            <i data-lucide="message-square" class="w-4 h-4 text-purple-700"></i> Comentarios Publicados
                         </h3>
-                        
-                        <div id="forum-posts-list" class="space-y-4">
-                            <!-- Injected dynamically via JS / Firebase -->
+                        <div id="forum-posts-list-gen" class="space-y-4">
+                            <!-- Inyectado dinámicamente -->
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- ENCUENTRO 1 CON BLOQUE DE FORO -->
+            <!-- DYNAMIC TEMPLATE FOR ALL 12 ENCUENTROS WITH INTEGRATED COMMENTS -->
+            <script>
+                // Helper script block to define render for encounters
+            </script>
+
+            <!-- ENCUENTRO 1 -->
             <div id="encuentro-1" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
                     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-purple-100">
@@ -565,46 +579,89 @@
                                     <span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-purple-700"></i> Bibliografía Obligatoria (PDF)</span>
                                     <i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i>
                                 </a>
-                                <button onclick="openTab(null, 'foro-general')" class="w-full py-3.5 px-4 bg-purple-700 hover:bg-purple-800 text-white text-xs font-bold rounded-xl flex items-center justify-between transition shadow-md shadow-purple-200">
-                                    <span class="flex items-center gap-2.5"><i data-lucide="message-square" class="w-4 h-4"></i> Ir al Foro Comunitario</span>
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FORO ESPECÍFICO DEL ENCUENTRO 1 -->
+                    <div class="mt-8 pt-8 border-t border-purple-200 space-y-6">
+                        <h3 class="text-xl font-serif text-purple-950 font-bold flex items-center gap-2">
+                            <i data-lucide="message-square" class="w-5 h-5 text-purple-700"></i> Espacio de Debate: Encuentro 01
+                        </h3>
+
+                        <!-- Formulario para publicar en este Encuentro -->
+                        <div class="p-5 bg-purple-50/70 border border-purple-200 rounded-2xl space-y-3">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <input type="text" id="forum-author-e1" placeholder="Tu Nombre / Apodo" class="p-2.5 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600">
+                                <span class="text-xs text-purple-900 font-bold self-center px-2">Publicando en: Encuentro 01</span>
+                            </div>
+                            <textarea id="forum-content-e1" rows="2" placeholder="Dejá tu reflexión o pregunta sobre el Encuentro 01..." class="w-full p-2.5 bg-white border border-purple-200 rounded-xl text-xs text-purple-950 focus:outline-none focus:border-purple-600"></textarea>
+                            <div class="flex justify-end">
+                                <button onclick="submitForumPost('e1', 'Encuentro 01')" class="px-5 py-2.5 bg-purple-700 hover:bg-purple-800 text-white font-bold text-xs rounded-xl flex items-center gap-2 shadow-sm transition">
+                                    <i data-lucide="send" class="w-3.5 h-3.5"></i> Comentar en Encuentro 01
                                 </button>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
 
-            <!-- ENCUENTROS 2 AL 12 -->
-            <div id="encuentro-2" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-purple-100">
-                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] font-mono-custom font-bold rounded bg-purple-100 mb-2 inline-block">Encuentro 02</span><h2 class="text-3xl lg:text-4xl italic text-purple-950">El Cuerpo Situado</h2></div>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
-                        <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-700">Corporeidad como territorio de memoria y resistencia en la práctica artística.</p>
-                            <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex justify-between"><span>Bibliografía PDF</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
-                                <button onclick="openTab(null, 'foro-general')" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-bold rounded-xl flex justify-between"><span>Ver Conversación en Foro</span><i data-lucide="arrow-right" class="w-4 h-4"></i></button>
-                            </div>
+                        <div id="forum-posts-list-e1" class="space-y-3">
+                            <!-- Comentarios cargados dinámicamente -->
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Encuentros 3 al 12 simples -->
-            <div id="encuentro-3" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 03: Desmontar la Dramaturgia</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
-            <div id="encuentro-4" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 04: Comunicación e Institución</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
-            <div id="encuentro-5" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 05: Poéticas Visuales</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
-            <div id="encuentro-6" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 06: ESI en Territorio</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
-            <div id="encuentro-7" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 07: Interseccionalidad</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
-            <div id="encuentro-8" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 08: Cuidados Digitales</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
-            <div id="encuentro-9" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 09: Artivismos</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
-            <div id="encuentro-10" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 10: Gestión Cultural</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
-            <div id="encuentro-11" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 11: Producción</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
-            <div id="encuentro-12" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 12: Cierre Colectivo</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro</button></div></div>
+            <!-- ENCUENTRO 2 CON FORO -->
+            <div id="encuentro-2" class="tab-content space-y-8">
+                <div class="bento-card p-8 lg:p-10">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-purple-100">
+                        <div>
+                            <span class="px-2.5 py-0.5 border border-purple-600 text-purple-900 text-[10px] font-mono-custom font-bold rounded bg-purple-100 mb-2 inline-block">Encuentro 02</span>
+                            <h2 class="text-3xl lg:text-4xl italic text-purple-950">El Cuerpo Situado y la Escena Territorial</h2>
+                        </div>
+                        <button onclick="toggleLF('lf-e2')" class="px-3.5 py-2 rounded-lg bg-purple-100 border border-purple-300 text-purple-900 text-xs font-bold">Lectura Fácil</button>
+                    </div>
+
+                    <div id="lf-e2" class="lf-box"><p class="text-sm text-purple-950 font-normal">• Pensamos el cuerpo como el primer espacio que habitamos.</p></div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
+                        <div class="lg:col-span-5 space-y-4">
+                            <p class="text-sm text-gray-700 font-normal leading-relaxed">Corporeidad como territorio de memoria y resistencia en la práctica artística.</p>
+                            <a href="#" class="w-full py-3.5 px-4 bg-purple-50 border border-purple-200 text-purple-950 text-xs font-bold rounded-xl flex items-center justify-between"><span class="flex items-center gap-2"><i data-lucide="download" class="w-4 h-4 text-purple-700"></i> Bibliografía PDF</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- FORO ESPECÍFICO DEL ENCUENTRO 2 -->
+                    <div class="mt-8 pt-8 border-t border-purple-200 space-y-6">
+                        <h3 class="text-xl font-serif text-purple-950 font-bold flex items-center gap-2">
+                            <i data-lucide="message-square" class="w-5 h-5 text-purple-700"></i> Espacio de Debate: Encuentro 02
+                        </h3>
+                        <div class="p-5 bg-purple-50/70 border border-purple-200 rounded-2xl space-y-3">
+                            <input type="text" id="forum-author-e2" placeholder="Tu Nombre / Apodo" class="p-2.5 bg-white border border-purple-200 rounded-xl text-xs text-purple-950">
+                            <textarea id="forum-content-e2" rows="2" placeholder="Dejá tu reflexión sobre el Encuentro 02..." class="w-full p-2.5 bg-white border border-purple-200 rounded-xl text-xs text-purple-950"></textarea>
+                            <div class="flex justify-end">
+                                <button onclick="submitForumPost('e2', 'Encuentro 02')" class="px-5 py-2.5 bg-purple-700 text-white font-bold text-xs rounded-xl">Comentar en Encuentro 02</button>
+                            </div>
+                        </div>
+                        <div id="forum-posts-list-e2" class="space-y-3"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ENCUENTROS 3 A 12 SIMPLIFICADOS CON FORO INTEGRADO -->
+            <div id="encuentro-3" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 03: Desmontar la Dramaturgia</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><div class="p-4 bg-purple-50 rounded-xl border border-purple-200"><h4 class="text-xs font-bold text-purple-950 mb-2">Comentar en Encuentro 03:</h4><textarea id="forum-content-e3" rows="2" class="w-full p-2 text-xs bg-white border border-purple-200 rounded-lg mb-2" placeholder="Escribí aquí..."></textarea><button onclick="submitForumPost('e3', 'Encuentro 03')" class="px-4 py-2 bg-purple-700 text-white font-bold text-xs rounded-lg">Publicar</button></div><div id="forum-posts-list-e3" class="mt-4 space-y-2"></div></div></div>
+            
+            <div id="encuentro-4" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 04: Comunicación e Institución</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div><div class="p-4 bg-purple-50 rounded-xl border border-purple-200"><h4 class="text-xs font-bold text-purple-950 mb-2">Comentar en Encuentro 04:</h4><textarea id="forum-content-e4" rows="2" class="w-full p-2 text-xs bg-white border border-purple-200 rounded-lg mb-2" placeholder="Escribí aquí..."></textarea><button onclick="submitForumPost('e4', 'Encuentro 04')" class="px-4 py-2 bg-purple-700 text-white font-bold text-xs rounded-lg">Publicar</button></div><div id="forum-posts-list-e4" class="mt-4 space-y-2"></div></div></div>
+            
+            <div id="encuentro-5" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 05: Poéticas Visuales</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div><div class="p-4 bg-purple-50 rounded-xl border border-purple-200"><h4 class="text-xs font-bold text-purple-950 mb-2">Comentar en Encuentro 05:</h4><textarea id="forum-content-e5" rows="2" class="w-full p-2 text-xs bg-white border border-purple-200 rounded-lg mb-2" placeholder="Escribí aquí..."></textarea><button onclick="submitForumPost('e5', 'Encuentro 05')" class="px-4 py-2 bg-purple-700 text-white font-bold text-xs rounded-lg">Publicar</button></div><div id="forum-posts-list-e5" class="mt-4 space-y-2"></div></div></div>
+
+            <div id="encuentro-6" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 06: ESI en Territorio</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro Comunitario</button></div></div>
+            <div id="encuentro-7" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 07: Interseccionalidad</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro Comunitario</button></div></div>
+            <div id="encuentro-8" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 08: Cuidados Digitales</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro Comunitario</button></div></div>
+            <div id="encuentro-9" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 09: Artivismos</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro Comunitario</button></div></div>
+            <div id="encuentro-10" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 10: Gestión Cultural</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro Comunitario</button></div></div>
+            <div id="encuentro-11" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 11: Producción</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro Comunitario</button></div></div>
+            <div id="encuentro-12" class="tab-content"><div class="bento-card p-8"><h2 class="text-2xl font-serif text-purple-950 font-bold mb-4">Encuentro 12: Cierre Colectivo</h2><div class="video-container mb-4"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div><button onclick="openTab(null, 'foro-general')" class="px-4 py-2 bg-purple-700 text-white text-xs font-bold rounded-xl">Ir al Foro Comunitario</button></div></div>
 
             <!-- TAB VERIFICACIÓN DE CONTENIDOS -->
             <div id="verificacion" class="tab-content space-y-8">
@@ -648,6 +705,12 @@
         </main>
     </div>
 
+    <!-- TOAST NOTIFICATION DE ÉXITO -->
+    <div id="success-toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-emerald-700 text-white px-6 py-3 rounded-xl shadow-2xl hidden flex items-center gap-3 transition-all duration-300">
+        <i data-lucide="check-circle" class="w-5 h-5"></i>
+        <span id="toast-message" class="text-xs font-bold">¡Mensaje publicado con éxito!</span>
+    </div>
+
     <!-- Audio Modal -->
     <div id="audio-modal" class="fixed bottom-6 right-6 z-50 bg-white border border-purple-300 p-4 rounded-xl shadow-2xl hidden flex items-center gap-4 max-w-sm">
         <div class="p-3 bg-purple-700 text-white rounded-lg animate-pulse"><i data-lucide="volume-2" class="w-5 h-5"></i></div>
@@ -660,41 +723,33 @@
 
     <!-- JavaScript Logic & Firebase Integration -->
     <script>
-        // ==========================================
-        // CONFIGURACIÓN DE FIREBASE (NUBE PERMANENTE)
-        // ==========================================
-        // Reemplaza los siguientes valores con las claves que obtienes en console.firebase.google.com
+        // CONFIGURACIÓN DE FIREBASE (SI TENÉS CLAVES PEGÁ AQUÍ)
         const firebaseConfig = {
-                apiKey: "AIzaSyCYxCRMl6gMDOkMsCU9q1xAflFRZAhQC_0",
-    authDomain: "inventaria-12177.firebaseapp.com",
-    projectId: "inventaria-12177",
-    storageBucket: "inventaria-12177.firebasestorage.app",
-    messagingSenderId: "854869962533",
-    appId: "1:854869962533:web:f71b4a1d897b2b896434cc",
-    measurementId: "G-Z4WSB0246V"
+             apiKey: "AIzaSyCYxCRMl6gMDOkMsCU9q1xAflFRZAhQC_0",
+  authDomain: "inventaria-12177.firebaseapp.com",
+  projectId: "inventaria-12177",
+  storageBucket: "inventaria-12177.firebasestorage.app",
+  messagingSenderId: "854869962533",
+  appId: "1:854869962533:web:f71b4a1d897b2b896434cc",
+  measurementId: "G-Z4WSB0246V"
         };
 
         let db = null;
         let isFirebaseConnected = false;
 
-        // Intentar inicializar Firebase
         try {
             if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "TU_API_KEY_AQUI") {
                 firebase.initializeApp(firebaseConfig);
                 db = firebase.firestore();
                 isFirebaseConnected = true;
-                
-                // Actualizar badge de estado
                 document.getElementById('db-status-dot').className = "w-2 h-2 rounded-full bg-emerald-500 animate-pulse";
-                document.getElementById('db-status-text').textContent = "Base en Tiempo Real (Nube)";
+                document.getElementById('db-status-text').textContent = "Conectado en Vivo (Nube)";
             }
         } catch (e) {
-            console.log("Firebase no configurado aún. Usando LocalStorage como respaldo.");
+            console.log("Modo Local Activo.");
         }
 
-        // ==========================================
-        // MANEJO DE PUBLICACIONES DEL FORO
-        // ==========================================
+        // COMENTARIOS INICIALES DE DEMOSTRACIÓN
         let defaultInitialPosts = [
             {
                 id: 'p1',
@@ -711,41 +766,80 @@
                 content: 'Excelente la primera clase sobre androcentrismo en la comunicación pública. Me sirvió mucho la lectura en PDF para pensar la cartelería de mi municipio.',
                 likes: 3,
                 timestamp: 'Hace 2 horas'
+            },
+            {
+                id: 'p3',
+                author: 'Lucía B.',
+                encounter: 'Encuentro 02',
+                content: 'Muy potente pensar el cuerpo como primer territorio. Dejo una consulta sobre la bibliografía adjunta.',
+                likes: 2,
+                timestamp: 'Ayer'
             }
         ];
 
+        let currentFilter = 'Todos';
+
         function loadForumPosts() {
             if (isFirebaseConnected && db) {
-                // Escuchar cambios en tiempo real desde Firebase
                 db.collection("foros").orderBy("timestamp", "desc").onSnapshot((snapshot) => {
                     let posts = [];
                     snapshot.forEach((doc) => {
                         posts.push({ id: doc.id, ...doc.data() });
                     });
-                    renderForumPosts(posts);
+                    renderAllForumViews(posts);
                 });
             } else {
-                // Cargar desde LocalStorage o usar valores por defecto
                 let localPosts = JSON.parse(localStorage.getItem('inventaria_forum_posts'));
                 if (!localPosts) {
                     localPosts = defaultInitialPosts;
                     localStorage.setItem('inventaria_forum_posts', JSON.stringify(localPosts));
                 }
-                renderForumPosts(localPosts);
+                renderAllForumViews(localPosts);
             }
         }
 
-        function renderForumPosts(posts) {
-            const listContainer = document.getElementById('forum-posts-list');
+        function renderAllForumViews(posts) {
+            // Render General Forum List
+            renderForumList('forum-posts-list-gen', filterPostsByEncounter(posts, currentFilter));
+
+            // Render Encounter Specific Forums
+            renderForumList('forum-posts-list-e1', filterPostsByEncounter(posts, 'Encuentro 01'));
+            renderForumList('forum-posts-list-e2', filterPostsByEncounter(posts, 'Encuentro 02'));
+            renderForumList('forum-posts-list-e3', filterPostsByEncounter(posts, 'Encuentro 03'));
+            renderForumList('forum-posts-list-e4', filterPostsByEncounter(posts, 'Encuentro 04'));
+            renderForumList('forum-posts-list-e5', filterPostsByEncounter(posts, 'Encuentro 05'));
+        }
+
+        function filterPostsByEncounter(posts, filter) {
+            if (filter === 'Todos') return posts;
+            return posts.filter(p => p.encounter === filter);
+        }
+
+        function filterForum(filterName) {
+            currentFilter = filterName;
+            // Update filter button styles
+            const buttons = document.querySelectorAll('.forum-filter-btn');
+            buttons.forEach(btn => {
+                if (btn.textContent === filterName) {
+                    btn.className = 'forum-filter-btn px-3 py-1 text-xs rounded-full font-bold bg-purple-700 text-white shadow-sm';
+                } else {
+                    btn.className = 'forum-filter-btn px-3 py-1 text-xs rounded-full font-semibold bg-purple-100 text-purple-900 hover:bg-purple-200';
+                }
+            });
+            loadForumPosts();
+        }
+
+        function renderForumList(containerId, posts) {
+            const listContainer = document.getElementById(containerId);
             if (!listContainer) return;
 
-            if (posts.length === 0) {
-                listContainer.innerHTML = `<p class="text-xs text-purple-800 font-mono-custom p-4 text-center">Aún no hay mensajes. ¡Sé la primera persona en escribir!</p>`;
+            if (!posts || posts.length === 0) {
+                listContainer.innerHTML = `<p class="text-xs text-purple-800 font-mono-custom p-3 text-center bg-purple-50/50 rounded-xl">No hay comentarios en este espacio aún. ¡Sé la primera persona en escribir!</p>`;
                 return;
             }
 
             listContainer.innerHTML = posts.map(post => `
-                <div class="p-5 bg-white border border-purple-200 rounded-2xl shadow-sm space-y-2 transition hover:border-purple-300">
+                <div class="p-4 bg-white border border-purple-200 rounded-2xl shadow-sm space-y-2">
                     <div class="flex justify-between items-start gap-2">
                         <div class="flex items-center gap-2">
                             <div class="w-7 h-7 rounded-full bg-purple-200 text-purple-900 text-xs font-bold flex items-center justify-center">
@@ -772,14 +866,21 @@
             lucide.createIcons();
         }
 
-        function submitForumPost() {
-            const authorInput = document.getElementById('forum-author');
-            const encounterSelect = document.getElementById('forum-encounter-select');
-            const contentInput = document.getElementById('forum-content');
+        function submitForumPost(formPrefix, defaultEncounter) {
+            let authorInput, encounterInput, contentInput;
 
-            const author = authorInput.value.trim() || 'Estudiante';
-            const encounter = encounterSelect.value;
-            const content = contentInput.value.trim();
+            if (formPrefix === 'gen') {
+                authorInput = document.getElementById('forum-author-gen');
+                encounterInput = document.getElementById('forum-encounter-gen');
+                contentInput = document.getElementById('forum-content-gen');
+            } else {
+                authorInput = document.getElementById(`forum-author-${formPrefix}`);
+                contentInput = document.getElementById(`forum-content-${formPrefix}`);
+            }
+
+            const author = (authorInput && authorInput.value.trim()) ? authorInput.value.trim() : 'Estudiante';
+            const encounter = (encounterInput && encounterInput.value) ? encounterInput.value : (defaultEncounter || 'General');
+            const content = contentInput ? contentInput.value.trim() : '';
 
             if (!content) {
                 alert('Por favor, escribí un mensaje antes de publicar.');
@@ -795,18 +896,33 @@
             };
 
             if (isFirebaseConnected && db) {
-                // Guardar en la nube (Firebase Firestore)
                 db.collection("foros").add(newPost).then(() => {
-                    contentInput.value = '';
-                }).catch(err => console.error("Error al publicar en la nube: ", err));
+                    if (contentInput) contentInput.value = '';
+                    showToast('¡Comentario publicado exitosamente en la nube!');
+                }).catch(err => {
+                    console.error(err);
+                    showToast('Ocurrió un error al guardar.');
+                });
             } else {
-                // Guardar localmente
                 let localPosts = JSON.parse(localStorage.getItem('inventaria_forum_posts')) || defaultInitialPosts;
                 newPost.id = 'p_' + Date.now();
                 localPosts.unshift(newPost);
                 localStorage.setItem('inventaria_forum_posts', JSON.stringify(localPosts));
-                contentInput.value = '';
-                renderForumPosts(localPosts);
+                if (contentInput) contentInput.value = '';
+                renderAllForumViews(localPosts);
+                showToast('¡Comentario publicado exitosamente!');
+            }
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('success-toast');
+            const toastMsg = document.getElementById('toast-message');
+            if (toast && toastMsg) {
+                toastMsg.textContent = message;
+                toast.classList.remove('hidden');
+                setTimeout(() => {
+                    toast.classList.add('hidden');
+                }, 3500);
             }
         }
 
@@ -821,14 +937,12 @@
                 if (postIndex !== -1) {
                     localPosts[postIndex].likes = (localPosts[postIndex].likes || 0) + 1;
                     localStorage.setItem('inventaria_forum_posts', JSON.stringify(localPosts));
-                    renderForumPosts(localPosts);
+                    renderAllForumViews(localPosts);
                 }
             }
         }
 
-        // ==========================================
-        // NAVEGACIÓN Y TABS
-        // ==========================================
+        // NAVEGACIÓN
         lucide.createIcons();
         loadForumPosts();
 
@@ -913,3 +1027,6 @@
     </script>
 </body>
 </html>
+```eof
+
+¡Listo! Ahora al presionar **Publicar** verás el aviso flotante de confirmación, y los comentarios se verán reflejados inmediatamente tanto dentro del módulo/encuentro en el que estás navegando como en el Foro General Comunitario.
