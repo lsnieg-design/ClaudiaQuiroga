@@ -13,19 +13,20 @@
     
     <style>
         :root {
-            --bg-dark: #121212;
-            --card-dark: #1A1A1A;
-            --card-border: #2A2A2A;
+            --bg-light: #FDFDFF;
+            --card-light: #FFFFFF;
+            --card-border: #E5E7EB;
             --violet-primary: #7B2CBF;
             --violet-accent: #A855F7;
-            --violet-hover: #9D4EDD;
-            --text-main: #EEEEEE;
-            --text-muted: #9CA3AF;
+            --violet-hover: #6A22A7;
+            --violet-bg-subtle: #F5EEFC;
+            --text-main: #1F2937;
+            --text-muted: #6B7280;
         }
 
         body { 
             font-family: 'Inter', sans-serif; 
-            background-color: var(--bg-dark); 
+            background-color: var(--bg-light); 
             color: var(--text-main); 
             margin: 0; 
             overflow-x: hidden; 
@@ -39,7 +40,7 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        /* Trama sutil animada en background */
+        /* Trama sutil animada en background para modo claro */
         .lineas-contenedor { 
             position: fixed; 
             top: 0; 
@@ -48,44 +49,45 @@
             height: 100vh; 
             z-index: 0; 
             pointer-events: none; 
-            opacity: 0.12; 
+            opacity: 0.25; 
         }
         
         @keyframes flujoOrganico {
             0% { transform: scale(1) translate(0, 0) rotate(0deg); }
-            50% { transform: scale(1.05) translate(1%, -0.5%) rotate(0.5deg); }
+            50% { transform: scale(1.04) translate(1%, -0.5%) rotate(0.4deg); }
             100% { transform: scale(1) translate(0, 0) rotate(0deg); }
         }
 
         .lineas-contenedor svg { 
             width: 100%;
             height: 100%;
-            animation: flujoOrganico 28s ease-in-out infinite; 
+            animation: flujoOrganico 30s ease-in-out infinite; 
         }
 
-        /* Glassmorphism Header & Cards */
+        /* Glassmorphism Header & Cards en tonos claros */
         .header-glass { 
-            background: rgba(18, 18, 18, 0.85); 
+            background: rgba(255, 255, 255, 0.92); 
             backdrop-filter: blur(16px); 
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06); 
         }
 
         .bento-card { 
-            background: var(--card-dark); 
+            background: var(--card-light); 
             border: 1px solid var(--card-border); 
             border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
             position: relative;
         }
 
         .bento-card:hover {
-            border-color: rgba(168, 85, 247, 0.4);
-            box-shadow: 0 12px 30px rgba(123, 44, 191, 0.15);
+            border-color: rgba(123, 44, 191, 0.4);
+            box-shadow: 0 12px 32px rgba(123, 44, 191, 0.08);
         }
 
-        /* Sidebar Styling */
+        /* Sidebar Styling Claro */
         .sidebar {
-            background: #161616;
+            background: #F8FAFC;
             border-right: 1px solid var(--card-border);
             width: 320px;
             height: calc(100vh - 73px);
@@ -101,37 +103,37 @@
             padding: 12px 20px;
             font-size: 13px;
             font-weight: 500;
-            color: #94A3B8;
+            color: #4B5563;
             border-left: 3px solid transparent;
             transition: all 0.2s ease;
             text-align: left;
         }
 
         .nav-btn:hover {
-            background: rgba(123, 44, 191, 0.1);
-            color: #FFFFFF;
+            background: rgba(123, 44, 191, 0.06);
+            color: var(--violet-primary);
         }
 
         .nav-btn.active {
-            background: rgba(123, 44, 191, 0.18);
-            color: #FFFFFF;
-            border-left-color: var(--violet-accent);
-            font-weight: 600;
+            background: var(--violet-bg-subtle);
+            color: var(--violet-primary);
+            border-left-color: var(--violet-primary);
+            font-weight: 700;
         }
 
         .nav-btn.active i {
-            color: var(--violet-accent);
+            color: var(--violet-primary);
         }
 
-        /* Custom Scrollbar */
+        /* Scrollbar Claro */
         ::-webkit-scrollbar {
             width: 6px;
         }
         ::-webkit-scrollbar-track {
-            background: #121212;
+            background: #F1F5F9;
         }
         ::-webkit-scrollbar-thumb {
-            background: #2A2A2A;
+            background: #CBD5E1;
             border-radius: 3px;
         }
         ::-webkit-scrollbar-thumb:hover {
@@ -157,12 +159,12 @@
             border: 0;
         }
 
-        /* Lectura Fácil Box */
+        /* Lectura Fácil Box Claro */
         .lf-box {
             display: none;
-            background: rgba(123, 44, 191, 0.12);
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            border-left: 4px solid var(--violet-accent);
+            background: #F5EEFC;
+            border: 1px solid #E9D5FF;
+            border-left: 4px solid var(--violet-primary);
             padding: 20px;
             border-radius: 12px;
             margin-bottom: 24px;
@@ -195,57 +197,58 @@
             width: 100%;
             padding: 16px 20px;
             margin: 10px 0;
-            background: #1F1F1F;
-            border: 1px solid #333;
+            background: #F9FAFB;
+            border: 1px solid #E5E7EB;
             border-radius: 10px;
-            color: #E2E8F0;
+            color: #1F2937;
             text-align: left;
             transition: all 0.2s;
             cursor: pointer;
+            font-weight: 500;
         }
         .option-btn:hover {
-            border-color: var(--violet-accent);
-            background: rgba(123, 44, 191, 0.2);
-            color: #FFF;
+            border-color: var(--violet-primary);
+            background: var(--violet-bg-subtle);
+            color: var(--violet-primary);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
-    <!-- Background Subtle Lines SVG -->
+    <!-- Background Subtle Lines SVG adaptado a fondo claro -->
     <div class="lineas-contenedor">
         <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path d="M-100 200 C 100 100, 300 300, 500 200 S 700 100, 900 200" fill="none" stroke="#A855F7" stroke-width="0.8"/>
-            <path d="M-50 450 C 250 550, 450 350, 650 450 S 950 550, 1150 450" fill="none" stroke="#A855F7" stroke-width="0.5" opacity="0.6"/>
-            <path d="M-100 700 C 200 750, 450 650, 650 700 S 850 750, 1050 700" fill="none" stroke="#7B2CBF" stroke-width="0.6" opacity="0.4"/>
-            <circle cx="200" cy="300" r="1.5" fill="#A855F7" opacity="0.5"/>
-            <circle cx="750" cy="600" r="1.5" fill="#7B2CBF" opacity="0.5"/>
+            <path d="M-100 200 C 100 100, 300 300, 500 200 S 700 100, 900 200" fill="none" stroke="#7B2CBF" stroke-width="0.8"/>
+            <path d="M-50 450 C 250 550, 450 350, 650 450 S 950 550, 1150 450" fill="none" stroke="#7B2CBF" stroke-width="0.5" opacity="0.6"/>
+            <path d="M-100 700 C 200 750, 450 650, 650 700 S 850 750, 1050 700" fill="none" stroke="#A855F7" stroke-width="0.6" opacity="0.4"/>
+            <circle cx="200" cy="300" r="1.8" fill="#7B2CBF" opacity="0.4"/>
+            <circle cx="750" cy="600" r="1.8" fill="#A855F7" opacity="0.4"/>
         </svg>
     </div>
 
-    <!-- Header Glass -->
+    <!-- Header Glass Claro -->
     <header class="py-4 px-6 header-glass sticky top-0 z-50">
         <div class="max-w-7xl mx-auto flex justify-between items-center">
             <div class="flex items-center gap-4">
-                <button id="mobile-menu-btn" class="md:hidden text-gray-300 hover:text-white focus:outline-none">
+                <button id="mobile-menu-btn" class="md:hidden text-gray-700 hover:text-purple-700 focus:outline-none">
                     <i data-lucide="menu" class="w-6 h-6"></i>
                 </button>
-                <h1 class="text-2xl tracking-tighter uppercase font-bold text-white flex items-center gap-3">
-                    <a href="index.html" class="hover:text-purple-400 transition">INVENTARIA</a>
-                    <span class="text-xs font-normal px-2.5 py-0.5 rounded-full bg-purple-950/80 text-purple-300 border border-purple-800/50 uppercase tracking-widest hidden sm:inline-block">Aula Virtual</span>
+                <h1 class="text-2xl tracking-tighter uppercase font-bold text-gray-900 flex items-center gap-3">
+                    <a href="index.html" class="hover:text-purple-700 transition">INVENTARIA</a>
+                    <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-purple-100 text-purple-800 border border-purple-200 uppercase tracking-widest hidden sm:inline-block">Aula Virtual</span>
                 </h1>
             </div>
 
             <div class="flex items-center gap-6">
-                <div class="hidden md:flex items-center gap-3 text-xs text-gray-400 border-r border-gray-800 pr-6 font-mono-custom">
+                <div class="hidden md:flex items-center gap-3 text-xs text-gray-600 border-r border-gray-200 pr-6 font-mono-custom">
                     <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                     <span>Cohorte 2026 &bull; 12 Encuentros</span>
                 </div>
                 <div class="flex items-center gap-3">
-                    <div class="w-8 h-8 rounded-full bg-purple-900/60 border border-purple-500/40 flex items-center justify-center text-purple-300 text-xs font-bold">
+                    <div class="w-8 h-8 rounded-full bg-purple-100 border border-purple-300 flex items-center justify-center text-purple-800 text-xs font-bold">
                         CQ
                     </div>
-                    <span class="text-xs text-gray-300 font-medium hidden sm:inline">Claudia Quiroga</span>
+                    <span class="text-xs text-gray-700 font-semibold hidden sm:inline">Claudia Quiroga</span>
                 </div>
             </div>
         </div>
@@ -254,11 +257,11 @@
     <!-- Main Workspace -->
     <div class="flex-1 flex max-w-7xl w-full mx-auto relative z-10">
 
-        <!-- Sidebar Navigation -->
+        <!-- Sidebar Navigation Claro -->
         <aside id="sidebar-nav" class="sidebar hidden md:flex flex-col justify-between overflow-y-auto z-40">
             <div class="py-6">
                 <div class="px-6 mb-4">
-                    <p class="text-[10px] uppercase tracking-[0.25em] font-semibold text-purple-400">Navegación General</p>
+                    <p class="text-[10px] uppercase tracking-[0.25em] font-bold text-purple-700">Navegación General</p>
                 </div>
 
                 <nav class="space-y-1 mb-6">
@@ -273,12 +276,12 @@
                 </nav>
 
                 <div class="px-6 mb-3 flex justify-between items-center">
-                    <p class="text-[10px] uppercase tracking-[0.25em] font-semibold text-purple-400">Encuentros (12)</p>
-                    <span class="text-[10px] font-mono-custom text-gray-500">0/12</span>
+                    <p class="text-[10px] uppercase tracking-[0.25em] font-bold text-purple-700">Encuentros (12)</p>
+                    <span class="text-[10px] font-mono-custom text-gray-400">0/12</span>
                 </div>
 
                 <nav class="space-y-0.5">
-                    <!-- 12 Encuentros Dynamic List -->
+                    <!-- 12 Encuentros List -->
                     <button class="nav-btn" onclick="openTab(event, 'encuentro-1')">
                         <i data-lucide="play-circle" class="w-4 h-4"></i>
                         <span>01. Narrativas de Género</span>
@@ -330,7 +333,7 @@
                 </nav>
 
                 <div class="px-6 mt-6 mb-3">
-                    <p class="text-[10px] uppercase tracking-[0.25em] font-semibold text-purple-400">Evaluación</p>
+                    <p class="text-[10px] uppercase tracking-[0.25em] font-bold text-purple-700">Evaluación</p>
                 </div>
                 <nav class="space-y-0.5">
                     <button class="nav-btn" onclick="openTab(event, 'verificacion')">
@@ -341,10 +344,10 @@
             </div>
 
             <!-- Sidebar Footer Info -->
-            <div class="p-6 border-t border-gray-800/80 bg-black/20">
+            <div class="p-6 border-t border-gray-200 bg-gray-50/50">
                 <p class="text-[10px] text-gray-500 uppercase tracking-widest leading-relaxed">
                     INVENTARIA &bull; Claudia Quiroga<br>
-                    <span class="text-purple-400">Plataforma Accesible 2026</span>
+                    <span class="text-purple-700 font-semibold">Plataforma Accesible 2026</span>
                 </p>
             </div>
         </aside>
@@ -355,16 +358,16 @@
             <!-- TAB 0: USO DEL CAMPUS -->
             <div id="uso-campus" class="tab-content active space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-gray-800">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8 pb-6 border-b border-gray-100">
                         <div>
-                            <span class="text-purple-400 font-mono-custom text-xs uppercase tracking-widest block mb-1">Guía del Estudiante</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">¿Cómo recorrer tu Aula Virtual?</h2>
+                            <span class="text-purple-700 font-mono-custom text-xs uppercase tracking-widest block mb-1 font-semibold">Guía del Estudiante</span>
+                            <h2 class="text-3xl lg:text-4xl italic text-gray-900">¿Cómo recorrer tu Aula Virtual?</h2>
                         </div>
                         <div class="flex items-center gap-3">
-                            <button onclick="toggleLF('lf-uso')" class="px-4 py-2 rounded-lg bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-semibold flex items-center gap-2 hover:bg-purple-800/40 transition">
-                                <i data-lucide="file-text" class="w-4 h-4"></i> Lectura Fácil
+                            <button onclick="toggleLF('lf-uso')" class="px-4 py-2 rounded-lg bg-purple-50 border border-purple-200 text-purple-800 text-xs font-semibold flex items-center gap-2 hover:bg-purple-100 transition">
+                                <i data-lucide="file-text" class="w-4 h-4 text-purple-700"></i> Lectura Fácil
                             </button>
-                            <button onclick="playAudioNarrative('Uso del Campus')" class="px-4 py-2 rounded-lg bg-purple-600 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-700 transition shadow-lg shadow-purple-900/30">
+                            <button onclick="playAudioNarrative('Uso del Campus')" class="px-4 py-2 rounded-lg bg-purple-700 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-800 transition shadow-md shadow-purple-200">
                                 <i data-lucide="volume-2" class="w-4 h-4"></i> Escuchar Guía
                             </button>
                         </div>
@@ -372,8 +375,8 @@
 
                     <!-- Lectura Fácil Box -->
                     <div id="lf-uso" class="lf-box">
-                        <p class="text-sm text-purple-200 leading-relaxed font-light">
-                            <strong class="text-purple-300 font-semibold block mb-1">Guía en Lectura Sencilla:</strong>
+                        <p class="text-sm text-purple-950 leading-relaxed font-normal">
+                            <strong class="text-purple-900 font-bold block mb-1">Guía en Lectura Sencilla:</strong>
                             • Usá el menú de la izquierda para cambiar entre los 12 encuentros.<br>
                             • En cada encuentro podés mirar la grabación del video sincrónico.<br>
                             • Tenés botones para descargar la bibliografía en PDF y entrar al foro de discusión.
@@ -381,73 +384,73 @@
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                        <div class="lg:col-span-2 space-y-6 text-gray-300 font-light leading-relaxed">
+                        <div class="lg:col-span-2 space-y-6 text-gray-700 font-normal leading-relaxed">
                             <p class="text-lg">
-                                Bienvenidx a la plataforma de aprendizaje de <strong class="text-white font-normal">INVENTARIA</strong>. Este espacio fue pensado para garantizar una experiencia clara, accesible e interactiva a lo largo de nuestros 12 encuentros.
+                                Bienvenidx a la plataforma de aprendizaje de <strong class="text-gray-900 font-semibold">INVENTARIA</strong>. Este espacio fue pensado para garantizar una experiencia clara, accesible e interactiva a lo largo de nuestros 12 encuentros.
                             </p>
-                            <p>
+                            <p class="text-gray-600">
                                 A través del panel lateral podrás acceder a cada clase grabada, descargar el material de lectura obligatoria y complementaria, e ingresar directamente a las actividades o foros de intercambio.
                             </p>
 
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-                                <div class="p-4 rounded-xl bg-black/40 border border-gray-800">
-                                    <div class="text-purple-400 mb-2"><i data-lucide="video" class="w-5 h-5"></i></div>
-                                    <h4 class="text-white font-semibold mb-1 text-sm">Encuentros Sincrónicos</h4>
-                                    <p class="text-xs text-gray-400">Si no pudiste asistir en vivo, el video queda alojado y incrustado en cada módulo.</p>
+                                <div class="p-4 rounded-xl bg-purple-50/50 border border-purple-100">
+                                    <div class="text-purple-700 mb-2"><i data-lucide="video" class="w-5 h-5"></i></div>
+                                    <h4 class="text-gray-900 font-semibold mb-1 text-sm">Encuentros Sincrónicos</h4>
+                                    <p class="text-xs text-gray-600">Si no pudiste asistir en vivo, el video queda alojado e incrustado en cada módulo.</p>
                                 </div>
-                                <div class="p-4 rounded-xl bg-black/40 border border-gray-800">
-                                    <div class="text-purple-400 mb-2"><i data-lucide="book-open" class="w-5 h-5"></i></div>
-                                    <h4 class="text-white font-semibold mb-1 text-sm">Bibliografía Directa</h4>
-                                    <p class="text-xs text-gray-400">Archivos PDF curados por la docente para lectura previa o posterior.</p>
+                                <div class="p-4 rounded-xl bg-purple-50/50 border border-purple-100">
+                                    <div class="text-purple-700 mb-2"><i data-lucide="book-open" class="w-5 h-5"></i></div>
+                                    <h4 class="text-gray-900 font-semibold mb-1 text-sm">Bibliografía Directa</h4>
+                                    <p class="text-xs text-gray-600">Archivos PDF curados por la docente para lectura previa o posterior.</p>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Video Tutorial Embedding -->
                         <div class="space-y-3">
-                            <div class="video-container">
+                            <div class="video-container shadow-md">
                                 <iframe src="https://www.youtube.com/embed/khCrpueNUSg" title="Tutorial del Campus"></iframe>
                             </div>
-                            <div class="p-3 bg-black/30 rounded-lg border border-gray-800 text-center">
-                                <p class="text-xs text-gray-400 flex items-center justify-center gap-2">
-                                    <i data-lucide="play-circle" class="w-4 h-4 text-purple-400"></i> Video Tutorial de Navegación
+                            <div class="p-3 bg-gray-50 rounded-lg border border-gray-200 text-center">
+                                <p class="text-xs text-gray-600 flex items-center justify-center gap-2">
+                                    <i data-lucide="play-circle" class="w-4 h-4 text-purple-700"></i> Video Tutorial de Navegación
                                 </p>
                             </div>
                         </div>
                     </div>
 
                     <!-- FAQ Section -->
-                    <div class="mt-12 pt-8 border-t border-gray-800">
-                        <h3 class="text-xl font-serif text-white mb-6 flex items-center gap-3">
-                            <i data-lucide="help-circle" class="w-5 h-5 text-purple-400"></i> Preguntas Frecuentes
+                    <div class="mt-12 pt-8 border-t border-gray-100">
+                        <h3 class="text-xl font-serif text-gray-900 mb-6 flex items-center gap-3">
+                            <i data-lucide="help-circle" class="w-5 h-5 text-purple-700"></i> Preguntas Frecuentes
                         </h3>
                         <div class="space-y-3">
-                            <details class="group bg-black/30 border border-gray-800 rounded-xl p-4 transition duration-200">
-                                <summary class="cursor-pointer font-medium text-gray-200 flex justify-between items-center group-open:text-purple-400">
+                            <details class="group bg-gray-50/70 border border-gray-200 rounded-xl p-4 transition duration-200">
+                                <summary class="cursor-pointer font-semibold text-gray-800 flex justify-between items-center group-open:text-purple-700">
                                     <span>¿Cómo accedo a los encuentros sincrónicos en vivo por Zoom?</span>
                                     <i data-lucide="chevron-down" class="w-4 h-4 transition group-open:rotate-180"></i>
                                 </summary>
-                                <p class="mt-3 text-sm text-gray-400 font-light leading-relaxed border-t border-gray-800/60 pt-3">
+                                <p class="mt-3 text-sm text-gray-600 font-normal leading-relaxed border-t border-gray-200 pt-3">
                                     El enlace permanente de Zoom se encuentra disponible en la pestaña de "Inicio & Hoja de Ruta", así como también en los recordatorios que enviamos por correo electrónico antes de cada clase.
                                 </p>
                             </details>
 
-                            <details class="group bg-black/30 border border-gray-800 rounded-xl p-4 transition duration-200">
-                                <summary class="cursor-pointer font-medium text-gray-200 flex justify-between items-center group-open:text-purple-400">
+                            <details class="group bg-gray-50/70 border border-gray-200 rounded-xl p-4 transition duration-200">
+                                <summary class="cursor-pointer font-semibold text-gray-800 flex justify-between items-center group-open:text-purple-700">
                                     <span>¿Dónde realizo consultas pedagógicas sobre el material?</span>
                                     <i data-lucide="chevron-down" class="w-4 h-4 transition group-open:rotate-180"></i>
                                 </summary>
-                                <p class="mt-3 text-sm text-gray-400 font-light leading-relaxed border-t border-gray-800/60 pt-3">
+                                <p class="mt-3 text-sm text-gray-600 font-normal leading-relaxed border-t border-gray-200 pt-3">
                                     En cada uno de los 12 encuentros encontrarás un botón de "Entrar al Foro / Recurso". Allí podés dejar tus inquietudes para que Claudia o las tutoras te respondan.
                                 </p>
                             </details>
 
-                            <details class="group bg-black/30 border border-gray-800 rounded-xl p-4 transition duration-200">
-                                <summary class="cursor-pointer font-medium text-gray-200 flex justify-between items-center group-open:text-purple-400">
+                            <details class="group bg-gray-50/70 border border-gray-200 rounded-xl p-4 transition duration-200">
+                                <summary class="cursor-pointer font-semibold text-gray-800 flex justify-between items-center group-open:text-purple-700">
                                     <span>¿Cuándo se entrega el certificado de participación?</span>
                                     <i data-lucide="chevron-down" class="w-4 h-4 transition group-open:rotate-180"></i>
                                 </summary>
-                                <p class="mt-3 text-sm text-gray-400 font-light leading-relaxed border-t border-gray-800/60 pt-3">
+                                <p class="mt-3 text-sm text-gray-600 font-normal leading-relaxed border-t border-gray-200 pt-3">
                                     El certificado digital se emitirá al completar la "Verificación de Contenidos" tras finalizar el Encuentro 12.
                                 </p>
                             </details>
@@ -459,71 +462,71 @@
             <!-- TAB 1: INICIO & HOJA DE RUTA -->
             <div id="inicio-trayecto" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="mb-8 pb-6 border-b border-gray-800">
-                        <span class="text-purple-400 font-mono-custom text-xs uppercase tracking-widest block mb-1">Presentación Institucional</span>
-                        <h2 class="text-3xl lg:text-5xl italic text-white mb-4">Herramientas para el territorio</h2>
-                        <p class="text-gray-400 text-lg font-light leading-relaxed max-w-2xl">
+                    <div class="mb-8 pb-6 border-b border-gray-100">
+                        <span class="text-purple-700 font-mono-custom text-xs uppercase tracking-widest block mb-1 font-semibold">Presentación Institucional</span>
+                        <h2 class="text-3xl lg:text-5xl italic text-gray-900 mb-4">Herramientas para el territorio</h2>
+                        <p class="text-gray-600 text-lg font-normal leading-relaxed max-w-2xl">
                             Un trayecto de 12 clases para repensar la comunicación, el arte y la educación desde una mirada transfeminista e interseccional.
                         </p>
                     </div>
 
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-10">
                         <div class="lg:col-span-2 space-y-6">
-                            <h3 class="text-xl font-serif text-white flex items-center gap-2">
-                                <i data-lucide="map" class="w-5 h-5 text-purple-400"></i> Hoja de Ruta General
+                            <h3 class="text-xl font-serif text-gray-900 flex items-center gap-2">
+                                <i data-lucide="map" class="w-5 h-5 text-purple-700"></i> Hoja de Ruta General
                             </h3>
                             
-                            <div class="space-y-2">
-                                <div class="p-4 bg-black/40 border border-gray-800 rounded-xl flex items-center justify-between">
+                            <div class="space-y-3">
+                                <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-between">
                                     <div class="flex items-center gap-4">
-                                        <span class="px-2.5 py-1 bg-purple-950 text-purple-300 text-xs font-mono-custom border border-purple-800/50 rounded">Módulo 1</span>
+                                        <span class="px-2.5 py-1 bg-purple-100 text-purple-800 text-xs font-mono-custom font-semibold border border-purple-200 rounded">Módulo 1</span>
                                         <div>
-                                            <h4 class="text-sm font-semibold text-white">Bases Teóricas & Lenguaje</h4>
-                                            <p class="text-xs text-gray-400">Encuentros 01 al 03</p>
+                                            <h4 class="text-sm font-semibold text-gray-900">Bases Teóricas & Lenguaje</h4>
+                                            <p class="text-xs text-gray-500">Encuentros 01 al 03</p>
                                         </div>
                                     </div>
-                                    <i data-lucide="check-circle" class="w-5 h-5 text-purple-500/40"></i>
+                                    <i data-lucide="check-circle" class="w-5 h-5 text-purple-600"></i>
                                 </div>
 
-                                <div class="p-4 bg-black/40 border border-gray-800 rounded-xl flex items-center justify-between">
+                                <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-between">
                                     <div class="flex items-center gap-4">
-                                        <span class="px-2.5 py-1 bg-purple-950 text-purple-300 text-xs font-mono-custom border border-purple-800/50 rounded">Módulo 2</span>
+                                        <span class="px-2.5 py-1 bg-purple-100 text-purple-800 text-xs font-mono-custom font-semibold border border-purple-200 rounded">Módulo 2</span>
                                         <div>
-                                            <h4 class="text-sm font-semibold text-white">Instituciones, ESI & Medios</h4>
-                                            <p class="text-xs text-gray-400">Encuentros 04 al 08</p>
+                                            <h4 class="text-sm font-semibold text-gray-900">Instituciones, ESI & Medios</h4>
+                                            <p class="text-xs text-gray-500">Encuentros 04 al 08</p>
                                         </div>
                                     </div>
-                                    <i data-lucide="circle" class="w-5 h-5 text-gray-600"></i>
+                                    <i data-lucide="circle" class="w-5 h-5 text-gray-400"></i>
                                 </div>
 
-                                <div class="p-4 bg-black/40 border border-gray-800 rounded-xl flex items-center justify-between">
+                                <div class="p-4 bg-gray-50 border border-gray-200 rounded-xl flex items-center justify-between">
                                     <div class="flex items-center gap-4">
-                                        <span class="px-2.5 py-1 bg-purple-950 text-purple-300 text-xs font-mono-custom border border-purple-800/50 rounded">Módulo 3</span>
+                                        <span class="px-2.5 py-1 bg-purple-100 text-purple-800 text-xs font-mono-custom font-semibold border border-purple-200 rounded">Módulo 3</span>
                                         <div>
-                                            <h4 class="text-sm font-semibold text-white">Artivismos, Gestión & Proyecto Final</h4>
-                                            <p class="text-xs text-gray-400">Encuentros 09 al 12</p>
+                                            <h4 class="text-sm font-semibold text-gray-900">Artivismos, Gestión & Proyecto Final</h4>
+                                            <p class="text-xs text-gray-500">Encuentros 09 al 12</p>
                                         </div>
                                     </div>
-                                    <i data-lucide="circle" class="w-5 h-5 text-gray-600"></i>
+                                    <i data-lucide="circle" class="w-5 h-5 text-gray-400"></i>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Docente Bio Profile -->
-                        <div class="bg-black/40 border border-gray-800 rounded-xl p-6 text-center flex flex-col items-center justify-between">
+                        <div class="bg-purple-50/40 border border-purple-100 rounded-xl p-6 text-center flex flex-col items-center justify-between">
                             <div>
-                                <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-purple-500/50 mx-auto mb-4 grayscale hover:grayscale-0 transition duration-500">
+                                <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-purple-400 mx-auto mb-4 shadow-sm grayscale hover:grayscale-0 transition duration-500">
                                     <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" alt="Claudia Quiroga" class="w-full h-full object-cover">
                                 </div>
-                                <h4 class="text-lg font-serif text-white">Claudia Quiroga</h4>
-                                <p class="text-xs text-purple-400 uppercase tracking-widest font-semibold mb-3">Docente & Facilitadora</p>
-                                <p class="text-xs text-gray-400 font-light leading-relaxed">
+                                <h4 class="text-lg font-serif text-gray-900">Claudia Quiroga</h4>
+                                <p class="text-xs text-purple-700 uppercase tracking-widest font-bold mb-3">Docente & Facilitadora</p>
+                                <p class="text-xs text-gray-600 font-normal leading-relaxed">
                                     Artivista, directora teatral, educadora y comunicadora especializada en perspectiva de género e interseccionalidad.
                                 </p>
                             </div>
-                            <div class="mt-6 w-full pt-4 border-t border-gray-800/80">
-                                <a href="mailto:hola@claudiaquiroga.com.ar" class="text-xs text-purple-300 hover:text-white flex items-center justify-center gap-2">
-                                    <i data-lucide="mail" class="w-3.5 h-3.5"></i> Contacto directo
+                            <div class="mt-6 w-full pt-4 border-t border-purple-200/60">
+                                <a href="mailto:hola@claudiaquiroga.com.ar" class="text-xs text-purple-800 font-semibold hover:text-purple-950 flex items-center justify-center gap-2">
+                                    <i data-lucide="mail" class="w-3.5 h-3.5 text-purple-700"></i> Contacto directo
                                 </a>
                             </div>
                         </div>
@@ -531,43 +534,39 @@
                 </div>
             </div>
 
-            <!-- DYNAMIC TEMPLATE FOR 12 ENCUENTROS -->
-            <!-- Encuentro 1 -->
+            <!-- ENCUENTRO 1 -->
             <div id="encuentro-1" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <!-- Title Header -->
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-800">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-100">
                         <div>
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded">Encuentro 01</span>
+                                <span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50">Encuentro 01</span>
                                 <span class="text-gray-500 text-xs font-mono-custom">Sincrónico &bull; Módulo 1</span>
                             </div>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Narrativas de Género en la Comunicación</h2>
+                            <h2 class="text-3xl lg:text-4xl italic text-gray-900">Narrativas de Género en la Comunicación</h2>
                         </div>
                         <div class="flex items-center gap-3">
-                            <button onclick="toggleLF('lf-e1')" class="px-3.5 py-2 rounded-lg bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-semibold flex items-center gap-2 hover:bg-purple-800/40 transition">
-                                <i data-lucide="file-text" class="w-4 h-4"></i> Lectura Fácil
+                            <button onclick="toggleLF('lf-e1')" class="px-3.5 py-2 rounded-lg bg-purple-50 border border-purple-200 text-purple-800 text-xs font-semibold flex items-center gap-2 hover:bg-purple-100 transition">
+                                <i data-lucide="file-text" class="w-4 h-4 text-purple-700"></i> Lectura Fácil
                             </button>
-                            <button onclick="playAudioNarrative('Encuentro 1')" class="px-3.5 py-2 rounded-lg bg-purple-600 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-700 transition shadow-lg shadow-purple-900/30">
+                            <button onclick="playAudioNarrative('Encuentro 1')" class="px-3.5 py-2 rounded-lg bg-purple-700 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-800 transition shadow-md shadow-purple-200">
                                 <i data-lucide="volume-2" class="w-4 h-4"></i> Escuchar Audio
                             </button>
                         </div>
                     </div>
 
-                    <!-- Lectura Fácil Box -->
                     <div id="lf-e1" class="lf-box">
-                        <p class="text-sm text-purple-200 leading-relaxed font-light">
-                            <strong class="text-purple-300 font-semibold block mb-1">Resumen en Lectura Sencilla:</strong>
+                        <p class="text-sm text-purple-950 leading-relaxed font-normal">
+                            <strong class="text-purple-900 font-bold block mb-1">Resumen en Lectura Sencilla:</strong>
                             • En esta clase analizamos cómo los medios y las instituciones usan las palabras y las imágenes.<br>
                             • Aprendemos a detectar estereotipos de género en los mensajes cotidianos.<br>
                             • Mirá el video completo y descargá la lectura sugerida.
                         </p>
                     </div>
 
-                    <!-- Layout Video + Intro Text -->
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
                         <div class="lg:col-span-7 space-y-4">
-                            <div class="video-container shadow-2xl">
+                            <div class="video-container shadow-md">
                                 <iframe src="https://www.youtube.com/embed/khCrpueNUSg" title="Encuentro 1 - Grabación Sincrónica"></iframe>
                             </div>
                             <p class="text-xs text-gray-500 text-center font-mono-custom">Grabación del encuentro en vivo (Duración: 1h 45min)</p>
@@ -575,24 +574,23 @@
 
                         <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
                             <div class="space-y-4">
-                                <h3 class="text-lg font-serif text-white">Introducción al Encuentro</h3>
-                                <p class="text-sm text-gray-300 font-light leading-relaxed">
+                                <h3 class="text-lg font-serif text-gray-900">Introducción al Encuentro</h3>
+                                <p class="text-sm text-gray-600 font-normal leading-relaxed">
                                     Iniciamos nuestro recorrido problematizando la noción de neutralidad en la comunicación pública y comunitaria. Revisamos los marcos conceptuales sobre cómo la palabra construye territorio e invisibiliza identidades.
                                 </p>
-                                <ul class="text-xs text-gray-400 space-y-2 pt-2">
-                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span> Definición de androcentrismo comunicacional</li>
-                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span> Marcos normativos y leyes de medios situadas</li>
-                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span> Análisis de casos en prensa e instituciones</li>
+                                <ul class="text-xs text-gray-600 space-y-2 pt-2">
+                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span> Definición de androcentrismo comunicacional</li>
+                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span> Marcos normativos y leyes de medios situadas</li>
+                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-600"></span> Análisis de casos en prensa e instituciones</li>
                                 </ul>
                             </div>
 
-                            <!-- Buttons Section -->
-                            <div class="space-y-3 pt-4 border-t border-gray-800/80">
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-900/40 border border-purple-500/50 hover:bg-purple-800/60 text-purple-200 text-xs font-semibold rounded-xl flex items-center justify-between transition">
-                                    <span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-purple-400"></i> Bibliografía Obligatoria (PDF)</span>
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            <div class="space-y-3 pt-4 border-t border-gray-100">
+                                <a href="#" class="w-full py-3.5 px-4 bg-purple-50 border border-purple-200 hover:bg-purple-100 text-purple-900 text-xs font-semibold rounded-xl flex items-center justify-between transition">
+                                    <span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-purple-700"></i> Bibliografía Obligatoria (PDF)</span>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i>
                                 </a>
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold rounded-xl flex items-center justify-between transition shadow-lg shadow-purple-900/20">
+                                <a href="#" class="w-full py-3.5 px-4 bg-purple-700 hover:bg-purple-800 text-white text-xs font-semibold rounded-xl flex items-center justify-between transition shadow-md shadow-purple-200">
                                     <span class="flex items-center gap-2.5"><i data-lucide="message-square" class="w-4 h-4"></i> Entrar al Foro & Recurso X</span>
                                     <i data-lucide="external-link" class="w-4 h-4"></i>
                                 </a>
@@ -602,30 +600,30 @@
                 </div>
             </div>
 
-            <!-- Encuentro 2 -->
+            <!-- ENCUENTRO 2 -->
             <div id="encuentro-2" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-800">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-100">
                         <div>
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded">Encuentro 02</span>
+                                <span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50">Encuentro 02</span>
                                 <span class="text-gray-500 text-xs font-mono-custom">Sincrónico &bull; Módulo 1</span>
                             </div>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">El Cuerpo Situado y la Escena Territorial</h2>
+                            <h2 class="text-3xl lg:text-4xl italic text-gray-900">El Cuerpo Situado y la Escena Territorial</h2>
                         </div>
                         <div class="flex items-center gap-3">
-                            <button onclick="toggleLF('lf-e2')" class="px-3.5 py-2 rounded-lg bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-semibold flex items-center gap-2 hover:bg-purple-800/40 transition">
-                                <i data-lucide="file-text" class="w-4 h-4"></i> Lectura Fácil
+                            <button onclick="toggleLF('lf-e2')" class="px-3.5 py-2 rounded-lg bg-purple-50 border border-purple-200 text-purple-800 text-xs font-semibold flex items-center gap-2 hover:bg-purple-100 transition">
+                                <i data-lucide="file-text" class="w-4 h-4 text-purple-700"></i> Lectura Fácil
                             </button>
-                            <button onclick="playAudioNarrative('Encuentro 2')" class="px-3.5 py-2 rounded-lg bg-purple-600 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-700 transition shadow-lg shadow-purple-900/30">
+                            <button onclick="playAudioNarrative('Encuentro 2')" class="px-3.5 py-2 rounded-lg bg-purple-700 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-800 transition shadow-md shadow-purple-200">
                                 <i data-lucide="volume-2" class="w-4 h-4"></i> Escuchar Audio
                             </button>
                         </div>
                     </div>
 
                     <div id="lf-e2" class="lf-box">
-                        <p class="text-sm text-purple-200 leading-relaxed font-light">
-                            <strong class="text-purple-300 font-semibold block mb-1">Resumen en Lectura Sencilla:</strong>
+                        <p class="text-sm text-purple-950 leading-relaxed font-normal">
+                            <strong class="text-purple-900 font-bold block mb-1">Resumen en Lectura Sencilla:</strong>
                             • Pensamos el cuerpo como el primer espacio que habitamos.<br>
                             • Reflexionamos sobre la presencia física en talleres, aulas y espacios comunitarios.<br>
                             • Accedé a las lecturas en PDF y compartí tu opinión en el espacio de debate.
@@ -634,7 +632,7 @@
 
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
                         <div class="lg:col-span-7 space-y-4">
-                            <div class="video-container shadow-2xl">
+                            <div class="video-container shadow-md">
                                 <iframe src="https://www.youtube.com/embed/sN9o-9L8C-E" title="Encuentro 2 - Grabación Sincrónica"></iframe>
                             </div>
                             <p class="text-xs text-gray-500 text-center font-mono-custom">Grabación del encuentro en vivo (Duración: 1h 30min)</p>
@@ -642,22 +640,18 @@
 
                         <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
                             <div class="space-y-4">
-                                <h3 class="text-lg font-serif text-white">Introducción al Encuentro</h3>
-                                <p class="text-sm text-gray-300 font-light leading-relaxed">
+                                <h3 class="text-lg font-serif text-gray-900">Introducción al Encuentro</h3>
+                                <p class="text-sm text-gray-600 font-normal leading-relaxed">
                                     Tratamos la corporeidad como territorio de memoria y resistencia. Indagamos en cómo las prácticas artísticas y teatrales permiten desarticular narrativas hegemónicas sobre los cuerpos.
                                 </p>
-                                <ul class="text-xs text-gray-400 space-y-2 pt-2">
-                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span> El cuerpo como primer territorio de disputa</li>
-                                    <li class="flex items-center gap-2.5"><span class="w-1.5 h-1.5 rounded-full bg-purple-500"></span> Espacialidad y presencias en talleres comunitarios</li>
-                                </ul>
                             </div>
 
-                            <div class="space-y-3 pt-4 border-t border-gray-800/80">
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-900/40 border border-purple-500/50 hover:bg-purple-800/60 text-purple-200 text-xs font-semibold rounded-xl flex items-center justify-between transition">
-                                    <span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-purple-400"></i> Bibliografía Encuentro 2 (PDF)</span>
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                            <div class="space-y-3 pt-4 border-t border-gray-100">
+                                <a href="#" class="w-full py-3.5 px-4 bg-purple-50 border border-purple-200 hover:bg-purple-100 text-purple-900 text-xs font-semibold rounded-xl flex items-center justify-between transition">
+                                    <span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-purple-700"></i> Bibliografía Encuentro 2 (PDF)</span>
+                                    <i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i>
                                 </a>
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold rounded-xl flex items-center justify-between transition shadow-lg shadow-purple-900/20">
+                                <a href="#" class="w-full py-3.5 px-4 bg-purple-700 hover:bg-purple-800 text-white text-xs font-semibold rounded-xl flex items-center justify-between transition shadow-md shadow-purple-200">
                                     <span class="flex items-center gap-2.5"><i data-lucide="folder-kanban" class="w-4 h-4"></i> Recurso Didáctico Adjunto</span>
                                     <i data-lucide="external-link" class="w-4 h-4"></i>
                                 </a>
@@ -667,97 +661,53 @@
                 </div>
             </div>
 
-            <!-- Encuentro 3 -->
+            <!-- ENCUENTRO 3 -->
             <div id="encuentro-3" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-800">
+                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-100">
                         <div>
                             <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded">Encuentro 03</span>
+                                <span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50">Encuentro 03</span>
                                 <span class="text-gray-500 text-xs font-mono-custom">Sincrónico &bull; Módulo 1</span>
                             </div>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Desmontar la Dramaturgia Hegemónica</h2>
+                            <h2 class="text-3xl lg:text-4xl italic text-gray-900">Desmontar la Dramaturgia Hegemónica</h2>
                         </div>
                         <div class="flex items-center gap-3">
-                            <button onclick="toggleLF('lf-e3')" class="px-3.5 py-2 rounded-lg bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-semibold flex items-center gap-2 hover:bg-purple-800/40 transition">
-                                <i data-lucide="file-text" class="w-4 h-4"></i> Lectura Fácil
-                            </button>
-                            <button onclick="playAudioNarrative('Encuentro 3')" class="px-3.5 py-2 rounded-lg bg-purple-600 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-700 transition shadow-lg shadow-purple-900/30">
-                                <i data-lucide="volume-2" class="w-4 h-4"></i> Escuchar Audio
-                            </button>
+                            <button onclick="toggleLF('lf-e3')" class="px-3.5 py-2 rounded-lg bg-purple-50 border border-purple-200 text-purple-800 text-xs font-semibold flex items-center gap-2 hover:bg-purple-100 transition"><i data-lucide="file-text" class="w-4 h-4 text-purple-700"></i> Lectura Fácil</button>
+                            <button onclick="playAudioNarrative('Encuentro 3')" class="px-3.5 py-2 rounded-lg bg-purple-700 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-800 transition"><i data-lucide="volume-2" class="w-4 h-4"></i> Escuchar Audio</button>
                         </div>
                     </div>
-
-                    <div id="lf-e3" class="lf-box">
-                        <p class="text-sm text-purple-200 leading-relaxed font-light">
-                            <strong class="text-purple-300 font-semibold block mb-1">Resumen en Lectura Sencilla:</strong>
-                            • Leemos obras de teatro y textos desde una mirada crítica feminista.<br>
-                            • Aprendemos herramientas para escribir relatos e historias más diversas.<br>
-                            • Descargá la carpeta de textos teatrales en PDF.
-                        </p>
-                    </div>
-
+                    <div id="lf-e3" class="lf-box"><p class="text-sm text-purple-950 font-normal">• Leemos obras de teatro y textos desde una mirada crítica feminista.<br>• Descargá la carpeta de textos teatrales en PDF.</p></div>
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-                        <div class="lg:col-span-7 space-y-4">
-                            <div class="video-container shadow-2xl">
-                                <iframe src="https://www.youtube.com/embed/e1VVy2nJyko" title="Encuentro 3 - Grabación Sincrónica"></iframe>
-                            </div>
-                            <p class="text-xs text-gray-500 text-center font-mono-custom">Grabación del encuentro en vivo (Duración: 1h 50min)</p>
-                        </div>
-
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
                         <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-serif text-white">Introducción al Encuentro</h3>
-                                <p class="text-sm text-gray-300 font-light leading-relaxed">
-                                    Análisis de estructuras dramáticas canónicas y exploración de poéticas feministas contemporáneas. ¿Cómo reescribir los conflictos sin reproducir la violencia machista?
-                                </p>
-                            </div>
-
-                            <div class="space-y-3 pt-4 border-t border-gray-800/80">
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-900/40 border border-purple-500/50 hover:bg-purple-800/60 text-purple-200 text-xs font-semibold rounded-xl flex items-center justify-between transition">
-                                    <span class="flex items-center gap-2.5"><i data-lucide="file-text" class="w-4 h-4 text-purple-400"></i> Antología de Textos (PDF)</span>
-                                    <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                                </a>
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold rounded-xl flex items-center justify-between transition shadow-lg shadow-purple-900/20">
-                                    <span class="flex items-center gap-2.5"><i data-lucide="message-square" class="w-4 h-4"></i> Foro de Escritura Colectiva</span>
-                                    <i data-lucide="external-link" class="w-4 h-4"></i>
-                                </a>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">Análisis de estructuras dramáticas canónicas y exploración de poéticas feministas contemporáneas. ¿Cómo reescribir los conflictos sin reproducir la violencia?</p>
+                            <div class="space-y-3 pt-4 border-t border-gray-100">
+                                <a href="#" class="w-full py-3.5 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex items-center justify-between"><span class="flex items-center gap-2.5"><i data-lucide="file-text" class="w-4 h-4 text-purple-700"></i> Antología de Textos (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <a href="#" class="w-full py-3.5 px-4 bg-purple-700 text-white text-xs font-semibold rounded-xl flex items-center justify-between"><span class="flex items-center gap-2.5"><i data-lucide="message-square" class="w-4 h-4"></i> Foro de Escritura Colectiva</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Encuentros 4 al 12 (Generados con contenido estructurado completo) -->
+            <!-- ENCUENTRO 4 AL 12 -->
             <!-- Encuentro 4 -->
             <div id="encuentro-4" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-800">
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-100">
                         <div>
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded">Encuentro 04</span>
-                                <span class="text-gray-500 text-xs font-mono-custom">Sincrónico &bull; Módulo 2</span>
-                            </div>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Comunicación e Institución con Perspectiva</h2>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button onclick="toggleLF('lf-e4')" class="px-3.5 py-2 rounded-lg bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-semibold flex items-center gap-2 hover:bg-purple-800/40 transition"><i data-lucide="file-text" class="w-4 h-4"></i> Lectura Fácil</button>
-                            <button onclick="playAudioNarrative('Encuentro 4')" class="px-3.5 py-2 rounded-lg bg-purple-600 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-700 transition"><i data-lucide="volume-2" class="w-4 h-4"></i> Escuchar Audio</button>
+                            <span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50 mb-2 inline-block">Encuentro 04</span>
+                            <h2 class="text-3xl lg:text-4xl italic text-gray-900">Comunicación e Institución con Perspectiva</h2>
                         </div>
                     </div>
-                    <div id="lf-e4" class="lf-box">
-                        <p class="text-sm text-purple-200 font-light">• Estrategias para transformar las comunicaciones oficiales dentro de organizaciones e instituciones públicas.</p>
-                    </div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-                        <div class="lg:col-span-7"><div class="video-container"><iframe src="https://www.youtube.com/embed/khCrpueNUSg" title="Encuentro 4"></iframe></div></div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div></div>
                         <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-serif text-white">Introducción</h3>
-                                <p class="text-sm text-gray-300 font-light leading-relaxed">Análisis de protocolos institucionales, guías de estilo sin sesgos de género y herramientas para la gestión de crisis comunicacionales.</p>
-                            </div>
-                            <div class="space-y-3 pt-4 border-t border-gray-800/80">
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-900/40 border border-purple-500/50 hover:bg-purple-800/60 text-purple-200 text-xs font-semibold rounded-xl flex items-center justify-between"><span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-purple-400"></i> Guía de Estilo Institucional (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-600 hover:bg-purple-700 text-white text-xs font-semibold rounded-xl flex items-center justify-between"><span class="flex items-center gap-2.5"><i data-lucide="file-spreadsheet" class="w-4 h-4"></i> Plantilla de Protocolo</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">Estrategias para transformar las comunicaciones oficiales dentro de organizaciones e instituciones públicas.</p>
+                            <div class="space-y-3">
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex justify-between"><span>Guía de Estilo Institucional (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Plantilla de Protocolo</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </div>
@@ -767,189 +717,150 @@
             <!-- Encuentro 5 -->
             <div id="encuentro-5" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-800">
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-100">
                         <div>
-                            <div class="flex items-center gap-3 mb-2">
-                                <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded">Encuentro 05</span>
-                                <span class="text-gray-500 text-xs font-mono-custom">Sincrónico &bull; Módulo 2</span>
-                            </div>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Poéticas Visuales & Lenguaje Inclusivo</h2>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button onclick="toggleLF('lf-e5')" class="px-3.5 py-2 rounded-lg bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-semibold flex items-center gap-2 hover:bg-purple-800/40 transition"><i data-lucide="file-text" class="w-4 h-4"></i> Lectura Fácil</button>
-                            <button onclick="playAudioNarrative('Encuentro 5')" class="px-3.5 py-2 rounded-lg bg-purple-600 text-white text-xs font-semibold flex items-center gap-2 hover:bg-purple-700 transition"><i data-lucide="volume-2" class="w-4 h-4"></i> Escuchar Audio</button>
+                            <span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50 mb-2 inline-block">Encuentro 05</span>
+                            <h2 class="text-3xl lg:text-4xl italic text-gray-900">Poéticas Visuales & Lenguaje Inclusivo</h2>
                         </div>
                     </div>
-                    <div id="lf-e5" class="lf-box"><p class="text-sm text-purple-200 font-light">• Uso del lenguaje inclusivo y la estética visual no cosificante en redes sociales e imprenta.</p></div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-                        <div class="lg:col-span-7"><div class="video-container"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E" title="Encuentro 5"></iframe></div></div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
                         <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
-                            <div class="space-y-4">
-                                <h3 class="text-lg font-serif text-white">Introducción</h3>
-                                <p class="text-sm text-gray-300 font-light leading-relaxed">Cómo combinar el diseño gráfico, la fotografía no esterotipada y el lenguaje no sexista para campañas con impacto social.</p>
-                            </div>
-                            <div class="space-y-3 pt-4 border-t border-gray-800/80">
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-900/40 border border-purple-500/50 text-purple-200 text-xs font-semibold rounded-xl flex items-center justify-between"><span class="flex items-center gap-2.5"><i data-lucide="download" class="w-4 h-4 text-purple-400"></i> Manual Visual (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
-                                <a href="#" class="w-full py-3.5 px-4 bg-purple-600 text-white text-xs font-semibold rounded-xl flex items-center justify-between"><span class="flex items-center gap-2.5"><i data-lucide="image" class="w-4 h-4"></i> Banco de Imágenes Libres</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">Cómo combinar el diseño gráfico, la fotografía no estereotipada y el lenguaje no sexista para campañas con impacto social.</p>
+                            <div class="space-y-3">
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex justify-between"><span>Manual Visual (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Banco de Imágenes Libres</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Encuentros 6 al 12 -->
+            <!-- Encuentro 6 -->
             <div id="encuentro-6" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 pb-6 border-b border-gray-800">
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-100">
                         <div>
-                            <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded mb-2 inline-block">Encuentro 06</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">ESI en Territorios Comunitarios</h2>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <button onclick="toggleLF('lf-e6')" class="px-3 py-1.5 bg-purple-900/30 border border-purple-500/30 text-purple-300 text-xs font-semibold rounded-lg">Lectura Fácil</button>
-                            <button onclick="playAudioNarrative('Encuentro 6')" class="px-3 py-1.5 bg-purple-600 text-white text-xs font-semibold rounded-lg">Escuchar Audio</button>
+                            <span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50 mb-2 inline-block">Encuentro 06</span>
+                            <h2 class="text-3xl lg:text-4xl italic text-gray-900">ESI en Territorios Comunitarios</h2>
                         </div>
                     </div>
-                    <div id="lf-e6" class="lf-box"><p class="text-sm text-purple-200">• Herramientas pedagógicas de la Educación Sexual Integral fuera de las aulas tradicionales.</p></div>
-                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-8">
-                        <div class="lg:col-span-7"><div class="video-container"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
                         <div class="lg:col-span-5 flex flex-col justify-between space-y-6">
-                            <p class="text-sm text-gray-300 font-light leading-relaxed">Estrategias de intervención en centros culturales, comedores y organizaciones de barrio para la transversalidad de la ESI.</p>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">Estrategias de intervención en centros culturales, comedores y organizaciones de barrio para la transversalidad de la ESI.</p>
                             <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-900/40 border border-purple-500/50 text-purple-200 text-xs font-semibold rounded-xl flex justify-between"><span>Bibliografía ESI (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-600 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Kits de Dinámicas</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex justify-between"><span>Bibliografía ESI (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Kits de Dinámicas</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Encuentro 7 -->
+            <!-- Encuentros 7 a 12 -->
             <div id="encuentro-7" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-800">
-                        <div>
-                            <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded mb-2 inline-block">Encuentro 07</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Interseccionalidad & Medios</h2>
-                        </div>
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-100">
+                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50 mb-2 inline-block">Encuentro 07</span><h2 class="text-3xl lg:text-4xl italic text-gray-900">Interseccionalidad & Medios</h2></div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div></div>
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div></div>
                         <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-300 font-light leading-relaxed">Cruces entre clase, raza, género y capacitismo en las narrativas mediáticas contemporáneas.</p>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">Cruces entre clase, raza, género y capacitismo en las narrativas mediáticas contemporáneas.</p>
                             <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-900/40 border border-purple-500/50 text-purple-200 text-xs font-semibold rounded-xl flex justify-between"><span>Lectura Interseccional (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-600 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Análisis de Caso</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex justify-between"><span>Lectura Interseccional (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Análisis de Caso</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Encuentro 8 -->
             <div id="encuentro-8" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-800">
-                        <div>
-                            <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded mb-2 inline-block">Encuentro 08</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Discursos de Odio & Cuidados Digitales</h2>
-                        </div>
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-100">
+                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50 mb-2 inline-block">Encuentro 08</span><h2 class="text-3xl lg:text-4xl italic text-gray-900">Discursos de Odio & Cuidados Digitales</h2></div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
                         <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-300 font-light leading-relaxed">Protección de redes sociales, respuesta colectiva ante violencia digital y estrategias de autocuidado en entornos virtuales.</p>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">Protección de redes sociales, respuesta colectiva ante violencia digital y estrategias de autocuidado en entornos virtuales.</p>
                             <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-900/40 border border-purple-500/50 text-purple-200 text-xs font-semibold rounded-xl flex justify-between"><span>Guía Ciberpatrullaje & Cuidado (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-600 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Recursos de Denuncia</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex justify-between"><span>Guía Ciberpatrullaje & Cuidado (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Recursos de Denuncia</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Encuentro 9 -->
             <div id="encuentro-9" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-800">
-                        <div>
-                            <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded mb-2 inline-block">Encuentro 09</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Artivismos & Archivos Vivos</h2>
-                        </div>
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-100">
+                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50 mb-2 inline-block">Encuentro 09</span><h2 class="text-3xl lg:text-4xl italic text-gray-900">Artivismos & Archivos Vivos</h2></div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
                         <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-300 font-light leading-relaxed">El arte como acción política directa en las calles y la construcción de archivos colectivos comunitarios.</p>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">El arte como acción política directa en las calles y la construcción de archivos colectivos comunitarios.</p>
                             <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-900/40 border border-purple-500/50 text-purple-200 text-xs font-semibold rounded-xl flex justify-between"><span>Catálogo de Artivismos (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-600 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Galería de Muestras</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex justify-between"><span>Catálogo de Artivismos (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Galería de Muestras</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Encuentro 10 -->
             <div id="encuentro-10" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-800">
-                        <div>
-                            <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded mb-2 inline-block">Encuentro 10</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Gestión Cultural Feminista</h2>
-                        </div>
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-100">
+                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50 mb-2 inline-block">Encuentro 10</span><h2 class="text-3xl lg:text-4xl italic text-gray-900">Gestión Cultural Feminista</h2></div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div></div>
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/khCrpueNUSg"></iframe></div></div>
                         <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-300 font-light leading-relaxed">Modelos de gestión colaborativa, economía social y redes de sostenibilidad para espacios culturales independientes.</p>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">Modelos de gestión colaborativa, economía social y redes de sostenibilidad para espacios culturales independientes.</p>
                             <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-900/40 border border-purple-500/50 text-purple-200 text-xs font-semibold rounded-xl flex justify-between"><span>Manual de Gestión (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-600 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Modelos de Presupuesto</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex justify-between"><span>Manual de Gestión (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Modelos de Presupuesto</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Encuentro 11 -->
             <div id="encuentro-11" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-800">
-                        <div>
-                            <span class="px-2.5 py-0.5 border border-purple-500 text-purple-400 text-[10px] uppercase font-mono-custom tracking-widest rounded mb-2 inline-block">Encuentro 11</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Producción & Financiamiento</h2>
-                        </div>
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-100">
+                        <div><span class="px-2.5 py-0.5 border border-purple-600 text-purple-700 text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded bg-purple-50 mb-2 inline-block">Encuentro 11</span><h2 class="text-3xl lg:text-4xl italic text-gray-900">Producción & Financiamiento</h2></div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/sN9o-9L8C-E"></iframe></div></div>
                         <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-300 font-light leading-relaxed">Convocatorias públicas, fondos de mecenazgo y estrategias de sostenimiento económico autogestivo.</p>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">Convocatorias públicas, fondos de mecenazgo y estrategias de sostenimiento económico autogestivo.</p>
                             <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-900/40 border border-purple-500/50 text-purple-200 text-xs font-semibold rounded-xl flex justify-between"><span>Guía de Convocatorias (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
-                                <a href="#" class="w-full py-3 px-4 bg-purple-600 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Formulario de Pitches</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex justify-between"><span>Guía de Convocatorias (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <a href="#" class="w-full py-3 px-4 bg-purple-700 text-white text-xs font-semibold rounded-xl flex justify-between"><span>Formulario de Pitches</span><i data-lucide="external-link" class="w-4 h-4"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Encuentro 12 -->
             <div id="encuentro-12" class="tab-content space-y-8">
-                <div class="bento-card p-8 lg:p-10 border-purple-500/50">
-                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-800">
-                        <div>
-                            <span class="px-2.5 py-0.5 bg-purple-600 text-white text-[10px] uppercase font-mono-custom tracking-widest rounded mb-2 inline-block">Encuentro 12 &bull; Cierre</span>
-                            <h2 class="text-3xl lg:text-4xl italic text-white">Cierre Colectivo & Muestra de Proyectos</h2>
-                        </div>
+                <div class="bento-card p-8 lg:p-10 border-purple-300">
+                    <div class="flex justify-between items-center mb-6 pb-6 border-b border-gray-100">
+                        <div><span class="px-2.5 py-0.5 bg-purple-700 text-white text-[10px] uppercase font-mono-custom font-bold tracking-widest rounded mb-2 inline-block">Encuentro 12 &bull; Cierre</span><h2 class="text-3xl lg:text-4xl italic text-gray-900">Cierre Colectivo & Muestra de Proyectos</h2></div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-                        <div class="lg:col-span-7"><div class="video-container"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
+                        <div class="lg:col-span-7"><div class="video-container shadow-md"><iframe src="https://www.youtube.com/embed/e1VVy2nJyko"></iframe></div></div>
                         <div class="lg:col-span-5 space-y-6">
-                            <p class="text-sm text-gray-300 font-light leading-relaxed">Presentación de las bitácoras finales, devoluciones entre pares y cierre del trayecto formativo INVENTARIA 2026.</p>
+                            <p class="text-sm text-gray-600 font-normal leading-relaxed">Presentación de las bitácoras finales, devoluciones entre pares y cierre del trayecto formativo INVENTARIA 2026.</p>
                             <div class="space-y-3">
-                                <a href="#" class="w-full py-3 px-4 bg-purple-900/40 border border-purple-500/50 text-purple-200 text-xs font-semibold rounded-xl flex justify-between"><span>Compilado de Trabajos (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4"></i></a>
-                                <button onclick="openTab(null, 'verificacion')" class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl flex items-center justify-between shadow-lg shadow-emerald-900/20">
+                                <a href="#" class="w-full py-3 px-4 bg-purple-50 border border-purple-200 text-purple-900 text-xs font-semibold rounded-xl flex justify-between"><span>Compilado de Trabajos (PDF)</span><i data-lucide="arrow-right" class="w-4 h-4 text-purple-700"></i></a>
+                                <button onclick="openTab(null, 'verificacion')" class="w-full py-3.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl flex items-center justify-between shadow-md shadow-emerald-200">
                                     <span class="flex items-center gap-2"><i data-lucide="award" class="w-4 h-4"></i> Ir a la Verificación Final</span>
                                     <i data-lucide="arrow-right" class="w-4 h-4"></i>
                                 </button>
@@ -962,19 +873,19 @@
             <!-- TAB VERIFICACIÓN DE CONTENIDOS -->
             <div id="verificacion" class="tab-content space-y-8">
                 <div class="bento-card p-8 lg:p-10">
-                    <div class="mb-8 pb-6 border-b border-gray-800">
-                        <span class="text-purple-400 font-mono-custom text-xs uppercase tracking-widest block mb-1">Evaluación del Trayecto</span>
-                        <h2 class="text-3xl lg:text-4xl italic text-white mb-2">Verificación de Contenidos</h2>
-                        <p class="text-gray-400 text-sm font-light">Responde estas breves preguntas para autoevaluar los conceptos trabajados durante los 12 encuentros.</p>
+                    <div class="mb-8 pb-6 border-b border-gray-100">
+                        <span class="text-purple-700 font-mono-custom text-xs uppercase tracking-widest block mb-1 font-semibold">Evaluación del Trayecto</span>
+                        <h2 class="text-3xl lg:text-4xl italic text-gray-900 mb-2">Verificación de Contenidos</h2>
+                        <p class="text-gray-600 text-sm font-normal">Responde estas breves preguntas para autoevaluar los conceptos trabajados durante los 12 encuentros.</p>
                     </div>
 
                     <!-- Step 1 -->
                     <div id="q1" class="quiz-step active space-y-4">
-                        <div class="flex justify-between items-center text-xs text-purple-400 font-mono-custom mb-2">
+                        <div class="flex justify-between items-center text-xs text-purple-700 font-mono-custom mb-2 font-semibold">
                             <span>Pregunta 1 de 4</span>
                             <span>Módulo 1</span>
                         </div>
-                        <h3 class="text-xl text-white font-serif">¿Por qué afirmamos que la comunicación institucional no es neutral?</h3>
+                        <h3 class="text-xl text-gray-900 font-serif">¿Por qué afirmamos que la comunicación institucional no es neutral?</h3>
                         <div class="space-y-2">
                             <button class="option-btn" onclick="nextQ('q1', 'q2')">a) Porque transmite y reproduce valores culturales y jerarquías sociales preexistentes.</button>
                             <button class="option-btn" onclick="nextQ('q1', 'q2')">b) Únicamente por razones comerciales de los medios de comunicación.</button>
@@ -984,11 +895,11 @@
 
                     <!-- Step 2 -->
                     <div id="q2" class="quiz-step space-y-4">
-                        <div class="flex justify-between items-center text-xs text-purple-400 font-mono-custom mb-2">
+                        <div class="flex justify-between items-center text-xs text-purple-700 font-mono-custom mb-2 font-semibold">
                             <span>Pregunta 2 de 4</span>
                             <span>Módulo 2</span>
                         </div>
-                        <h3 class="text-xl text-white font-serif">La perspectiva interseccional en el territorio implica considerar:</h3>
+                        <h3 class="text-xl text-gray-900 font-serif">La perspectiva interseccional en el territorio implica considerar:</h3>
                         <div class="space-y-2">
                             <button class="option-btn" onclick="nextQ('q2', 'q3')">a) Solamente las diferencias de género sin contemplar otras variables.</button>
                             <button class="option-btn" onclick="nextQ('q2', 'q3')">b) El cruce simultáneo entre género, clase, etnicidad, edad y territorio.</button>
@@ -998,11 +909,11 @@
 
                     <!-- Step 3 -->
                     <div id="q3" class="quiz-step space-y-4">
-                        <div class="flex justify-between items-center text-xs text-purple-400 font-mono-custom mb-2">
+                        <div class="flex justify-between items-center text-xs text-purple-700 font-mono-custom mb-2 font-semibold">
                             <span>Pregunta 3 de 4</span>
                             <span>Módulo 3</span>
                         </div>
-                        <h3 class="text-xl text-white font-serif">¿Qué busca un proyecto de Artivismo Comunitario?</h3>
+                        <h3 class="text-xl text-gray-900 font-serif">¿Qué busca un proyecto de Artivismo Comunitario?</h3>
                         <div class="space-y-2">
                             <button class="option-btn" onclick="nextQ('q3', 'q4')">a) Entretener de manera pasiva sin generar debates locales.</button>
                             <button class="option-btn" onclick="nextQ('q3', 'q4')">b) Vincular la potencia estética y del arte con la transformación social e incidir en el territorio.</button>
@@ -1011,11 +922,11 @@
 
                     <!-- Step 4 -->
                     <div id="q4" class="quiz-step space-y-4">
-                        <div class="flex justify-between items-center text-xs text-purple-400 font-mono-custom mb-2">
+                        <div class="flex justify-between items-center text-xs text-purple-700 font-mono-custom mb-2 font-semibold">
                             <span>Pregunta 4 de 4</span>
                             <span>Cierre</span>
                         </div>
-                        <h3 class="text-xl text-white font-serif">¿La ESI es una herramienta utilizable solo en escuelas primarias?</h3>
+                        <h3 class="text-xl text-gray-900 font-serif">¿La ESI es una herramienta utilizable solo en escuelas primarias?</h3>
                         <div class="space-y-2">
                             <button class="option-btn" onclick="finishQuiz()">a) Verdadero, solo aplica al ámbito escolar obligatorio.</button>
                             <button class="option-btn" onclick="finishQuiz()">b) Falso, es un derecho transversal utilizable en espacios comunitarios, artísticos y culturales.</button>
@@ -1024,15 +935,15 @@
 
                     <!-- Quiz Final Finished -->
                     <div id="quiz-final" class="quiz-step text-center py-8 space-y-6">
-                        <div class="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500 text-emerald-400 flex items-center justify-center mx-auto text-2xl">
+                        <div class="w-16 h-16 rounded-full bg-emerald-100 border border-emerald-300 text-emerald-700 flex items-center justify-center mx-auto text-2xl">
                             <i data-lucide="award" class="w-8 h-8"></i>
                         </div>
-                        <h3 class="text-3xl text-white font-serif">¡Felicitaciones!</h3>
-                        <p class="text-gray-300 max-w-md mx-auto font-light text-sm leading-relaxed">
-                            Has completado la verificación de contenidos correspondientes a los 12 Encuentros del trayecto <strong class="text-white">INVENTARIA 2026</strong>.
+                        <h3 class="text-3xl text-gray-900 font-serif">¡Felicitaciones!</h3>
+                        <p class="text-gray-600 max-w-md mx-auto font-normal text-sm leading-relaxed">
+                            Has completado la verificación de contenidos correspondientes a los 12 Encuentros del trayecto <strong class="text-gray-900">INVENTARIA 2026</strong>.
                         </p>
                         <div class="pt-4 flex justify-center gap-4">
-                            <button onclick="location.reload()" class="px-6 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold text-xs rounded-xl uppercase tracking-widest">
+                            <button onclick="location.reload()" class="px-6 py-3 bg-purple-700 hover:bg-purple-800 text-white font-semibold text-xs rounded-xl uppercase tracking-widest shadow-md">
                                 Reiniciar Evaluación
                             </button>
                         </div>
@@ -1044,45 +955,38 @@
     </div>
 
     <!-- Audio Modal / Notification -->
-    <div id="audio-modal" class="fixed bottom-6 right-6 z-50 bg-purple-950 border border-purple-500/50 p-4 rounded-xl shadow-2xl hidden flex items-center gap-4 max-w-sm">
-        <div class="p-3 bg-purple-600 text-white rounded-lg animate-pulse">
+    <div id="audio-modal" class="fixed bottom-6 right-6 z-50 bg-white border border-purple-200 p-4 rounded-xl shadow-xl hidden flex items-center gap-4 max-w-sm">
+        <div class="p-3 bg-purple-700 text-white rounded-lg animate-pulse">
             <i data-lucide="volume-2" class="w-5 h-5"></i>
         </div>
         <div>
-            <p class="text-xs font-semibold text-white">Reproduciendo Narración</p>
-            <p id="audio-title" class="text-[10px] text-purple-300 font-mono-custom">Encuentro 01</p>
+            <p class="text-xs font-bold text-gray-900">Reproduciendo Narración</p>
+            <p id="audio-title" class="text-[10px] text-purple-700 font-mono-custom">Encuentro 01</p>
         </div>
-        <button onclick="closeAudioModal()" class="text-gray-400 hover:text-white ml-auto">
+        <button onclick="closeAudioModal()" class="text-gray-400 hover:text-gray-700 ml-auto">
             <i data-lucide="x" class="w-4 h-4"></i>
         </button>
     </div>
 
     <!-- JavaScript Logic -->
     <script>
-        // Initialize Lucide Icons
         lucide.createIcons();
 
-        // Navigation Tab Switching
         function openTab(evt, tabId) {
-            // Hide all tab contents
             const contents = document.querySelectorAll('.tab-content');
             contents.forEach(content => content.classList.remove('active'));
 
-            // Remove active class from all nav buttons
             const navButtons = document.querySelectorAll('.nav-btn');
             navButtons.forEach(btn => btn.classList.remove('active'));
 
-            // Show current tab content
             const targetTab = document.getElementById(tabId);
             if (targetTab) {
                 targetTab.classList.add('active');
             }
 
-            // Set active class on clicked button if triggered by event
             if (evt && evt.currentTarget) {
                 evt.currentTarget.classList.add('active');
             } else {
-                // Find matching button by onclick parameter
                 navButtons.forEach(btn => {
                     if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes(tabId)) {
                         btn.classList.add('active');
@@ -1090,17 +994,14 @@
                 });
             }
 
-            // Scroll to top on desktop/mobile
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Close mobile menu if open
             const sidebar = document.getElementById('sidebar-nav');
             if (window.innerWidth < 768 && sidebar) {
                 sidebar.classList.add('hidden');
             }
         }
 
-        // Toggle Lectura Fácil Visibility
         function toggleLF(id) {
             const box = document.getElementById(id);
             if (box) {
@@ -1108,7 +1009,6 @@
             }
         }
 
-        // Simulated Audio Narrative Notification
         function playAudioNarrative(title) {
             const modal = document.getElementById('audio-modal');
             const titleElem = document.getElementById('audio-title');
@@ -1126,7 +1026,6 @@
             if (modal) modal.classList.add('hidden');
         }
 
-        // Quiz Step Logic
         function nextQ(currentId, nextId) {
             const curr = document.getElementById(currentId);
             const next = document.getElementById(nextId);
@@ -1145,7 +1044,6 @@
             }
         }
 
-        // Mobile Nav Toggle
         document.getElementById('mobile-menu-btn')?.addEventListener('click', function() {
             const sidebar = document.getElementById('sidebar-nav');
             if (sidebar) {
@@ -1157,4 +1055,4 @@
 </html>
 ```eof
 
-Your interactive **INVENTARIA Virtual Classroom** prototype with all 12 encounters is ready! Feel free to review it and let me know if you would like to make any adjustments or add extra materials.
+He transformado el Aula Virtual a una estética clara manteniendo intacta la identidad visual de **INVENTARIA** (con el tono de la revista digital clara que mostraste). Los textos ahora ofrecen máximo contraste y legibilidad. ¡Quedo atento por si querés ajustar cualquier otro detalle!
